@@ -7,5 +7,5 @@ main.js
 2b.a- Correctos - 2a
 2b.b- Incorrectos - Mensaje de salida
 2b.b.a - Opcion Cerrar
-2b.b.b - Opción recuperar (Draft)
+2b.b.b - Opción recuperar
 3.- Menú de opciones
