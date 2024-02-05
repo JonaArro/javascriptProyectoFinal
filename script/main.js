@@ -1,10 +1,10 @@
 let password = 1982;
 let loginAttempts = 4; // Número máximo de intentos
 let loggedIn = false;
-const cotizacionDolarCompra = 850;
-const cotizacionDolarVenta = 830;
-const cotizacionEuroCompra = 930;
-const cotizacionEuroVenta = 900;
+const cotizacionDolarCompra = 848;
+const cotizacionDolarVenta = 808;
+const cotizacionEuroCompra = 941;
+const cotizacionEuroVenta = 881;
 
 function validarEntradasPrestamo(montoPrestamo, plazoMeses) {
   if (
@@ -13,7 +13,7 @@ function validarEntradasPrestamo(montoPrestamo, plazoMeses) {
     montoPrestamo <= 0 ||
     plazoMeses <= 0
   ) {
-    alert("Por favor, ingrese valores válidos y positivos.");
+    alert("❗Por favor, ingrese valores válidos y positivos.❗");
     return false;
   }
   return true;
@@ -50,8 +50,8 @@ function simuladorPrestamo() {
   mostrarPorcentajesInteres(); // Mostrar porcentajes antes de solicitar datos
 
   do {
-    montoPrestamo = parseFloat(prompt("Ingrese el monto del préstamo:"));
-    plazoMeses = parseInt(prompt("Ingrese el plazo del préstamo en meses:"));
+    montoPrestamo = parseFloat(prompt("💲Ingrese el monto del préstamo:"));
+    plazoMeses = parseInt(prompt("🗓️Ingrese el plazo del préstamo en meses:"));
   } while (!validarEntradasPrestamo(montoPrestamo, plazoMeses));
 
   // Calcular la tasa de interés anual según los rangos establecidos
@@ -66,7 +66,7 @@ function simuladorPrestamo() {
       (montoPrestamo * tasaInteresMensual) /
       (1 - Math.pow(1 + tasaInteresMensual, -plazoMeses));
 
-    cuotas += `Mes: ${i}, Cuota Mensual (ARS): ${cuotaMensual.toFixed(2)}\n`;
+    cuotas += `Mes: ${i}, Cuota Mensual ($): ${cuotaMensual.toFixed(2)}\n`;
   }
 
   alert("Detalles del préstamo por mes:\n" + cuotas);
@@ -81,8 +81,9 @@ function cotizarEuro(pesos, compra = true) {
 }
 
 function validarCantidad(cantidad) {
-  if (isNaN(cantidad) || cantidad <= 0) {
-    alert("Por favor, ingrese valores válidos y positivos.");
+  console.log(cantidad);
+  if (isNaN(cantidad) || cantidad <= 9) {
+    alert("❗Por favor, ingrese valores válidos y positivos mayores a 9.❗");
     return false;
   }
   return true;
@@ -100,12 +101,10 @@ function simuladorDolares() {
       cotizacionDolarVenta
   );
 
-  let cantidadCompraDolar;
-  let cantidadVtaDolar;
   if (opcion === "a") {
     do {
-      cantidadCompraDolar = prompt(
-        "Ingrese en pesos la cantidad de dolares a comprar:"
+      cantidadCompraDolar = parseFloat(
+        prompt("💲Ingrese en pesos la cantidad de dolares a comprar:")
       );
     } while (
       !validarCantidad(cantidadCompraDolar) ||
@@ -128,14 +127,14 @@ function simuladorDolares() {
     );
 
     alert(
-      "Vendiendo U$S " +
+      "Vendiendo U$D " +
         cantidadVtaDolar +
         " dólares puede obtener: $" +
         cotizarDolar(cantidadVtaDolar, false).toFixed(2) +
         " (pesos)"
     );
   } else {
-    alert("Opción no válida");
+    alert("🛑❌ Opción no válida ❌🛑");
   }
 }
 
@@ -152,9 +151,15 @@ function simuladorEuros() {
   );
 
   if (opcion === "a") {
-    let cantidadCompraEuro = parseFloat(
-      prompt("Ingrese en pesos la cantidad de Euros a comprar:")
+    do {
+      cantidadCompraEuro = parseFloat(
+        prompt("💲Ingrese en pesos la cantidad de Euros a comprar:")
+      );
+    } while (
+      !validarCantidad(cantidadCompraEuro) ||
+      isNaN(parseFloat(cantidadCompraEuro))
     );
+
     alert(
       "Con $ " +
         cantidadCompraEuro +
@@ -163,7 +168,13 @@ function simuladorEuros() {
         " (euros)"
     );
   } else if (opcion === "b") {
-    let cantidadVtaEuro = parseFloat(prompt("Ingrese la cantidad a vender:"));
+    do {
+      cantidadVtaEuro = parseFloat(prompt("Ingrese la cantidad a vender:"));
+    } while (
+      !validarCantidad(cantidadVtaEuro) ||
+      isNaN(parseFloat(cantidadVtaEuro))
+    );
+
     alert(
       "Vendiendo € " +
         cantidadVtaEuro +
@@ -172,7 +183,7 @@ function simuladorEuros() {
         " (pesos)"
     );
   } else {
-    alert("Opción no válida");
+    alert("🛑❌ Opción no válida ❌🛑");
   }
 }
 
@@ -222,7 +233,7 @@ if (loggedIn) {
         break;
 
       default:
-        alert("Opción no válida");
+        alert("🛑❌ Opción no válida ❌🛑");
         break;
     }
   } while (option !== "d");
