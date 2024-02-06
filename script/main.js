@@ -20,27 +20,28 @@ function validarEntradasPrestamo(montoPrestamo, plazoMeses) {
 }
 
 function calcularTasaInteresAnual(plazoMeses) {
+  // Tasa tomadas de ejemplo del BBVA
   if (plazoMeses >= 1 && plazoMeses <= 6) {
-    return 30;
+    return 286.13; // TEA para 6 meses
   } else if (plazoMeses >= 7 && plazoMeses <= 12) {
-    return 50;
+    return 293.09; // TEA para 12 meses
   } else if (plazoMeses >= 13 && plazoMeses <= 18) {
-    return 65;
+    return 296.61; // TEA para 18 meses
   } else if (plazoMeses >= 19 && plazoMeses <= 24) {
-    return 80;
+    return 296.61; // TEA para 24 meses
   } else {
-    return 100;
+    return 298.8; // TEA para más de 24 meses
   }
 }
 
 function mostrarPorcentajesInteres() {
   alert(
     "Porcentajes de interés según el plazo:\n" +
-      "1-6 meses: 30%\n" +
-      "7-12 meses: 50%\n" +
-      "13-18 meses: 65%\n" +
-      "19-24 meses: 80%\n" +
-      "Más de 25 meses: 100%"
+      "1-6 meses: 286.13% (TEA)\n" +
+      "7-12 meses: 293.09% (TEA)\n" +
+      "13-18 meses: 296.61% (TEA)\n" +
+      "19-24 meses: 296.61% (TEA)\n" +
+      "Más de 25 meses: 298.80% (TEA)"
   );
 }
 
@@ -62,6 +63,7 @@ function simuladorPrestamo() {
   let cuotas = "";
 
   for (let i = 1; i <= plazoMeses; i++) {
+    // Fórmula de amortización de préstamos con interés compuesto
     let cuotaMensual =
       (montoPrestamo * tasaInteresMensual) /
       (1 - Math.pow(1 + tasaInteresMensual, -plazoMeses));
@@ -81,7 +83,6 @@ function cotizarEuro(pesos, compra = true) {
 }
 
 function validarCantidad(cantidad) {
-  console.log(cantidad);
   if (isNaN(cantidad) || cantidad <= 9) {
     alert("❗Por favor, ingrese valores válidos y positivos mayores a 9.❗");
     return false;
@@ -104,7 +105,7 @@ function simuladorDolares() {
   if (opcion === "a") {
     do {
       cantidadCompraDolar = parseFloat(
-        prompt("💲Ingrese en pesos la cantidad de dolares a comprar:")
+        prompt("💲Ingrese en pesos la cantidad de dólares a comprar:")
       );
     } while (
       !validarCantidad(cantidadCompraDolar) ||
@@ -114,13 +115,13 @@ function simuladorDolares() {
     alert(
       "Con $ " +
         cantidadCompraDolar +
-        " pesos puede comprar: U$S" +
+        " pesos puede comprar: U$D" +
         cotizarDolar(parseFloat(cantidadCompraDolar)).toFixed(2) +
         " (dólares)"
     );
   } else if (opcion === "b") {
     do {
-      cantidadVtaDolar = prompt("Ingrese la cantidad a vender:");
+      cantidadVtaDolar = prompt("Ingrese la cantidad de dólares a vender:");
     } while (
       !validarCantidad(cantidadVtaDolar) ||
       isNaN(parseFloat(cantidadVtaDolar))
@@ -169,7 +170,9 @@ function simuladorEuros() {
     );
   } else if (opcion === "b") {
     do {
-      cantidadVtaEuro = parseFloat(prompt("Ingrese la cantidad a vender:"));
+      cantidadVtaEuro = parseFloat(
+        prompt("Ingrese la cantidad de Euros a vender:")
+      );
     } while (
       !validarCantidad(cantidadVtaEuro) ||
       isNaN(parseFloat(cantidadVtaEuro))
@@ -201,7 +204,7 @@ for (let i = 0; i < loginAttempts; i++) {
     break; // Sale del bucle si la contraseña es correcta
   } else {
     alert(
-      "Ingresó incorrectamente su password, pruebe nuevamente. \nIntento: " +
+      "❗Ingresó incorrectamente su password, pruebe nuevamente. \nIntento: " +
         (i + 1)
     );
   }
