@@ -30,7 +30,7 @@ Simulador financiero interactivo que permite realizar operaciones como simulacio
 
 ### `calcularTasaInteresAnual(plazoMeses)`
 
-Esta función calcula la tasa de interés anual (TEA) según el plazo en meses.
+Función que calcula la tasa de interés anual (TEA) según el plazo en meses.
 
 ### `mostrarPorcentajesInteres()`
 
