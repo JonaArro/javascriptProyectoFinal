@@ -3,113 +3,184 @@ let loginAttempts = 4; // Número máximo de intentos
 let loggedIn = false;
 let carrito = []; // Definir el carrito
 
-class Producto {
-  constructor(id, nombre, precio, stock, img) {
-    this.id = id;
-    this.nombre = nombre;
-    this.precio = precio;
-    this.stock = stock;
-    this.img = img;
-  }
-}
-
-const listaProductos = [];
 const listaProductosSonajero = [];
 const listaProductosCunero = [];
 const listaProductosLetras = [];
 const listaProductosPeluche = [];
 
-// Array de datos de productos
-const productosData = [
-  [1, "sonajero", 2500, 10, "imagen1.jpg"],
-  [2, "cunero", 9500, 5, "imagen2.jpg"],
-  [3, "letras", 1000, 20, "imagen3.jpg"],
-  [4, "peluche", 2500, 8, "imagen4.jpg"],
-];
-
-// Crear productos usando un bucle
-for (const data of productosData) {
-  const [id, nombre, precio, stock, img] = data;
-  listaProductos.push(new Producto(id, nombre, parseFloat(precio), stock, img));
-}
-
-console.log(listaProductos.length);
-
 class Productos {
-  constructor(id, nombre, categoria, precio, stock, img) {
+  constructor(id, nombre, categoria, subCategoria, precio, stock, img) {
     this.id = id;
     this.nombre = nombre;
     this.categoria = categoria;
+    this.subCategoria = subCategoria;
     this.precio = precio;
     this.stock = stock;
     this.img = img;
   }
 }
 
+function pagarCarrito() {
+  if (carrito.length > 0) {
+    let total = carrito.reduce(
+      (acc, item) => acc + item.precioUnitario * item.cantidad,
+      0
+    );
+
+    let confirmation = confirm(
+      "Resumen del carrito de compras:\n\n" +
+        carrito
+          .map(
+            (item, index) =>
+              `${index + 1}. Producto: ${item.nombre} - Cantidad: ${
+                item.cantidad
+              } - Precio Unitario: $${item.precioUnitario}`
+          )
+          .join("\n") +
+        "\n\nTotal a pagar: $" +
+        total.toFixed(2) +
+        "\n\n¿Desea confirmar la compra?"
+    );
+
+    if (confirmation) {
+      // Limpiar el carrito después de pagar
+      carrito = [];
+      alert("¡Gracias por su compra! El carrito ha sido vaciado.");
+    } else {
+      let eliminarProducto = confirm(
+        "¿Desea eliminar algún producto del carrito?\n\nIngrese 's' para eliminar un producto o 'n' para cancelar."
+      );
+
+      if (eliminarProducto) {
+        let idProducto = parseInt(
+          prompt(
+            "Ingrese el número del producto que desea eliminar:\n\n" +
+              carrito
+                .map(
+                  (item, index) =>
+                    `${index + 1}. Producto: ${item.nombre} - Cantidad: ${
+                      item.cantidad
+                    } - Precio Unitario: $${item.precioUnitario}`
+                )
+                .join("\n")
+          )
+        );
+
+        if (
+          !isNaN(idProducto) &&
+          idProducto >= 1 &&
+          idProducto <= carrito.length
+        ) {
+          // Obtener el índice del producto en base al número ingresado
+          let index = idProducto - 1;
+          let eliminado = carrito.splice(index, 1)[0];
+          alert(`Se ha eliminado ${eliminado.nombre} del carrito.`);
+        } else {
+          alert("Número de producto inválido.");
+        }
+      }
+    }
+  } else {
+    alert("El carrito está vacío. No hay nada que pagar.");
+  }
+}
+
 const productosSonajeros = [
-  [1, "Perro", "animal", 2500, 10, "imagen1.jpg"],
-  [2, "Zorro", "animal", 2500, 10, "imagen1.jpg"],
-  [3, "Gallo", "animal", 2500, 10, "imagen1.jpg"],
-  [4, "Vaca", "animal", 2500, 10, "imagen1.jpg"],
+  [1, "Perro", "Sonajero", "animal", 2500, 10, "imagen1.jpg"],
+  [2, "Zorro", "Sonajero", "animal", 2500, 10, "imagen1.jpg"],
+  [3, "Gallo", "Sonajero", "animal", 2500, 10, "imagen1.jpg"],
+  [4, "Vaca", "Sonajero", "animal", 2500, 10, "imagen1.jpg"],
 ];
 
 // Crear productos usando un bucle
 for (const data of productosSonajeros) {
-  const [id, nombre, categoria, precio, stock, img] = data;
+  const [id, nombre, categoria, subCategoria, precio, stock, img] = data;
   listaProductosSonajero.push(
-    new Productos(id, nombre, categoria, parseFloat(precio), stock, img)
+    new Productos(
+      id,
+      nombre,
+      categoria,
+      subCategoria,
+      parseFloat(precio),
+      stock,
+      img
+    )
   );
 }
 console.log(listaProductosSonajero);
 
 const productosCunero = [
-  [1, "Estrellas y planetas", "universo", 2500, 10, "imagen1.jpg"],
-  [2, "Estrellas", "universo", 2500, 10, "imagen1.jpg"],
-  [3, "Animales de la Granja", "animal", 2500, 10, "imagen1.jpg"],
-  [4, "Animales del mar", "animal", 2500, 10, "imagen1.jpg"],
-  [5, "Dinosaurios", "dinosaurio", 2500, 10, "imagen1.jpg"],
+  [1, "Estrellas y planetas", "Cunero", "universo", 2500, 10, "imagen1.jpg"],
+  [2, "Estrellas", "Cunero", "universo", 2500, 10, "imagen1.jpg"],
+  [3, "Animales de la Granja", "Cunero", "animal", 2500, 10, "imagen1.jpg"],
+  [4, "Animales del mar", "Cunero", "animal", 2500, 10, "imagen1.jpg"],
+  [5, "Dinosaurios", "Cunero", "dinosaurio", 2500, 10, "imagen1.jpg"],
 ];
 
 // Crear productos usando un bucle
 for (const data of productosCunero) {
-  const [id, nombre, categoria, precio, stock, img] = data;
+  const [id, nombre, categoria, subCategoria, precio, stock, img] = data;
   listaProductosCunero.push(
-    new Productos(id, nombre, categoria, parseFloat(precio), stock, img)
+    new Productos(
+      id,
+      nombre,
+      categoria,
+      subCategoria,
+      parseFloat(precio),
+      stock,
+      img
+    )
   );
 }
 console.log(listaProductosCunero);
 
 const productosLetras = [
-  [1, "Letra", "letra", 2500, 10, "imagen1.jpg"],
-  [2, "Estrella", "universo", 2500, 10, "imagen1.jpg"],
-  [3, "Esfera", "figura geometrica", 2500, 10, "imagen1.jpg"],
-  [4, "borla", "general", 2500, 10, "imagen1.jpg"],
+  [1, "Letra", "Letra", "letra", 2500, 10, "imagen1.jpg"],
+  [2, "Estrella", "Letra", "universo", 2500, 10, "imagen1.jpg"],
+  [3, "Esfera", "Letra", "figura geometrica", 2500, 10, "imagen1.jpg"],
+  [4, "borla", "Letra", "general", 2500, 10, "imagen1.jpg"],
 ];
 
 // Crear productos usando un bucle
 for (const data of productosLetras) {
-  const [id, nombre, categoria, precio, stock, img] = data;
+  const [id, nombre, categoria, subCategoria, precio, stock, img] = data;
   listaProductosLetras.push(
-    new Productos(id, nombre, categoria, parseFloat(precio), stock, img)
+    new Productos(
+      id,
+      nombre,
+      categoria,
+      subCategoria,
+      parseFloat(precio),
+      stock,
+      img
+    )
   );
 }
 console.log(listaProductosLetras);
 
 const productosPeluches = [
-  [1, "Perro", "animal", 2500, 10, "imagen1.jpg"],
-  [2, "Zorro", "animal", 2500, 10, "imagen1.jpg"],
-  [3, "Jirafa", "animal", 2500, 10, "imagen1.jpg"],
-  [4, "Elefante", "animal", 2500, 10, "imagen1.jpg"],
-  [5, "T-Rex", "dinosaurio", 2500, 10, "imagen1.jpg"],
-  [6, "Brontosaurio", "dinosaurio", 2500, 10, "imagen1.jpg"],
-  [7, "Triceratop", "dinosaurio", 2500, 10, "imagen1.jpg"],
+  [1, "Perro", "Peluche", "animal", 2500, 10, "imagen1.jpg"],
+  [2, "Zorro", "Peluche", "animal", 2500, 10, "imagen1.jpg"],
+  [3, "Jirafa", "Peluche", "animal", 2500, 10, "imagen1.jpg"],
+  [4, "Elefante", "Peluche", "animal", 2500, 10, "imagen1.jpg"],
+  [5, "T-Rex", "Peluche", "dinosaurio", 2500, 10, "imagen1.jpg"],
+  [6, "Brontosaurio", "Peluche", "dinosaurio", 2500, 10, "imagen1.jpg"],
+  [7, "Triceratop", "Peluche", "dinosaurio", 2500, 10, "imagen1.jpg"],
 ];
 
 // Crear productos usando un bucle
 for (const data of productosPeluches) {
-  const [id, nombre, categoria, precio, stock, img] = data;
+  const [id, nombre, categoria, subCategoria, precio, stock, img] = data;
   listaProductosPeluche.push(
-    new Productos(id, nombre, categoria, parseFloat(precio), stock, img)
+    new Productos(
+      id,
+      nombre,
+      categoria,
+      subCategoria,
+      parseFloat(precio),
+      stock,
+      img
+    )
   );
 }
 console.log(listaProductosPeluche);
@@ -148,6 +219,7 @@ function compraSonajero() {
         carrito.push({
           id: productoEncontrado.id,
           nombre: productoEncontrado.nombre,
+          categoria: productoEncontrado.categoria,
           precioUnitario: productoEncontrado.precio,
           cantidad: cantidad,
         });
@@ -177,11 +249,11 @@ function compraSonajero() {
     );
 
     alert(
-      "Resumen del carrito de compras:\n\n" +
+      "Resumen Parcial del carrito de compras:\n\n" +
         carrito
           .map(
             (item) =>
-              `${item.nombre} - Cantidad: ${item.cantidad} - Precio Unitario: $${item.precioUnitario}`
+              `Producto ${item.categoria} ${item.nombre} - Cantidad: ${item.cantidad} - Precio Unitario: $${item.precioUnitario}`
           )
           .join("\n") +
         "\n\nTotal a pagar: $" +
@@ -226,6 +298,7 @@ function compraCunero() {
         carrito.push({
           id: productoEncontrado.id,
           nombre: productoEncontrado.nombre,
+          categoria: productoEncontrado.categoria,
           precioUnitario: productoEncontrado.precio,
           cantidad: cantidad,
         });
@@ -255,11 +328,11 @@ function compraCunero() {
     );
 
     alert(
-      "Resumen del carrito de compras:\n\n" +
+      "Resumen Parcial del carrito de compras:\n\n" +
         carrito
           .map(
             (item) =>
-              `${item.nombre} - Cantidad: ${item.cantidad} - Precio Unitario: $${item.precioUnitario}`
+              `Producto ${item.categoria} ${item.nombre} - Cantidad: ${item.cantidad} - Precio Unitario: $${item.precioUnitario}`
           )
           .join("\n") +
         "\n\nTotal a pagar: $" +
@@ -304,6 +377,7 @@ function compraPeluches() {
         carrito.push({
           id: productoEncontrado.id,
           nombre: productoEncontrado.nombre,
+          categoria: productoEncontrado.categoria,
           precioUnitario: productoEncontrado.precio,
           cantidad: cantidad,
         });
@@ -333,11 +407,11 @@ function compraPeluches() {
     );
 
     alert(
-      "Resumen del carrito de compras:\n\n" +
+      "Resumen Parcial del carrito de compras:\n\n" +
         carrito
           .map(
             (item) =>
-              `${item.nombre} - Cantidad: ${item.cantidad} - Precio Unitario: $${item.precioUnitario}`
+              `Producto ${item.categoria} ${item.nombre} - Cantidad: ${item.cantidad} - Precio Unitario: $${item.precioUnitario}`
           )
           .join("\n") +
         "\n\nTotal a pagar: $" +
@@ -392,11 +466,17 @@ if (loggedIn) {
       case "d":
         compraPeluches();
         break;
+
       case "e":
         buscarProducto();
         break;
+
+      case "p":
+        pagarCarrito();
+        break;
+
       case "x":
-        alert("➡️➡️Saliendo del Simulador Financiero");
+        alert("➡️➡️Sistema de Ventas Amigurumi");
         break;
 
       default:
