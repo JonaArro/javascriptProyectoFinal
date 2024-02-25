@@ -196,7 +196,7 @@ function compraCunero() {
   let continuar;
 
   do {
-    let opcionesDisponibles = listaProductosSonajero
+    let opcionesDisponibles = listaProductosCunero
       .map((producto) => `${producto.id}. ${producto.nombre}`)
       .join("\n");
     let idProducto = parseInt(
@@ -274,7 +274,7 @@ function compraPeluches() {
   let continuar;
 
   do {
-    let opcionesDisponibles = listaProductosSonajero
+    let opcionesDisponibles = listaProductosPeluche
       .map((producto) => `${producto.id}. ${producto.nombre}`)
       .join("\n");
     let idProducto = parseInt(
