@@ -1,10 +1,22 @@
-let password = 1982;
+let password = 1;
 let loginAttempts = 4; // Número máximo de intentos
 let loggedIn = false;
-const cotizacionDolarCompra = 848;
-const cotizacionDolarVenta = 808;
-const cotizacionEuroCompra = 941;
-const cotizacionEuroVenta = 881;
+class Cotizacion {
+  constructor(cotizacionCompra, cotizacionVenta) {
+    this.cotizacionCompra = cotizacionCompra;
+    this.cotizacionVenta = cotizacionVenta;
+  }
+}
+// Array para almacenar las cotizaciones del dólar
+let cotizacionesDolar = [];
+
+// Cotización default
+const cotizacionDolarHoy = new Cotizacion(848, 808);
+
+// Agrego cotización default al array
+cotizacionesDolar.push(cotizacionDolarHoy);
+
+const cotizacionEuroHoy = new Cotizacion(941, 881);
 
 function validarEntradasPrestamo(montoPrestamo, plazoMeses) {
   if (
@@ -75,11 +87,16 @@ function simuladorPrestamo() {
 }
 
 function cotizarDolar(pesos, compra = true) {
-  return compra ? pesos / cotizacionDolarCompra : pesos * cotizacionDolarVenta;
+  let ultimaCotizacion = cotizacionesDolar[cotizacionesDolar.length - 1]; // Última cotización almacenada
+  return compra
+    ? pesos / ultimaCotizacion.cotizacionCompra
+    : pesos * ultimaCotizacion.cotizacionVenta;
 }
 
 function cotizarEuro(pesos, compra = true) {
-  return compra ? pesos / cotizacionEuroCompra : pesos * cotizacionEuroVenta;
+  return compra
+    ? pesos / cotizacionEuroHoy.cotizacionCompra
+    : pesos * cotizacionEuroHoy.cotizacionVenta;
 }
 
 function validarCantidad(cantidad) {
@@ -91,18 +108,46 @@ function validarCantidad(cantidad) {
 }
 
 function simuladorDolares() {
-  let opcion = prompt(
-    "Seleccione la operación que desea realizar:\n" +
-      "a.- Compra de dólares 📥💵\n" +
-      "b.- Venta de dólares 📤💵\n\n" +
-      "Cotizaciones del día:\n" +
+  function mostrarOpciones() {
+    let cotizacionActual = cotizacionesDolar[cotizacionesDolar.length - 1];
+    return prompt(
+      "Seleccione la operación que desea realizar:\n" +
+        "a.- Compra de dólares 📥💵\n" +
+        "b.- Venta de dólares 📤💵\n" +
+        "c.- Carga manualmente su cotización y simule\n" +
+        "r.- Resetear cotizaciones a los valores del día\n\n" +
+        "Cotizaciones actuales :\n" +
+        "Compra: $" +
+        cotizacionActual.cotizacionCompra +
+        "\nVenta: $" +
+        cotizacionActual.cotizacionVenta
+    );
+  }
+
+  if (cotizacionesDolar.length === 0) {
+    // Si no hay cotizaciones almacenadas, mostrar un mensaje y salir de la función
+    alert(
+      "No hay cotizaciones disponibles. Por favor, cargue una cotización antes de continuar."
+    );
+    return;
+  }
+
+  // Crear la cadena de texto para las cotizaciones cargadas manualmente
+  let cotizacionesManuales = "Cotizaciones cargadas manualmente:\n";
+  for (let cotizacion of cotizacionesDolar.slice(1)) {
+    cotizacionesManuales +=
       "Compra: $" +
-      cotizacionDolarCompra +
-      "\nVenta: $" +
-      cotizacionDolarVenta
-  );
+      cotizacion.cotizacionCompra +
+      "\n" +
+      "Venta: $" +
+      cotizacion.cotizacionVenta +
+      "\n";
+  }
+
+  let opcion = mostrarOpciones();
 
   if (opcion === "a") {
+    // Opción para comprar dólares
     do {
       cantidadCompraDolar = parseFloat(
         prompt("💲Ingrese en pesos la cantidad de dólares a comprar:")
@@ -120,6 +165,7 @@ function simuladorDolares() {
         " (dólares)"
     );
   } else if (opcion === "b") {
+    // Opción para vender dólares
     do {
       cantidadVtaDolar = prompt("Ingrese la cantidad de dólares a vender:");
     } while (
@@ -134,6 +180,36 @@ function simuladorDolares() {
         cotizarDolar(cantidadVtaDolar, false).toFixed(2) +
         " (pesos)"
     );
+  } else if (opcion === "c") {
+    // Opción para cargar manualmente la cotización del dólar
+    let nuevaCotizacionCompra = parseFloat(
+      prompt("Ingrese la nueva cotización de compra del dólar:")
+    );
+    let nuevaCotizacionVenta = parseFloat(
+      prompt("Ingrese la nueva cotización de venta del dólar:")
+    );
+
+    if (!isNaN(nuevaCotizacionCompra) && !isNaN(nuevaCotizacionVenta)) {
+      let nuevaCotizacion = new Cotizacion(
+        nuevaCotizacionCompra,
+        nuevaCotizacionVenta
+      );
+      cotizacionesDolar.push(nuevaCotizacion); // Agregar nueva cotización al array
+      alert("Cotizaciones actualizadas correctamente.");
+      // Después de actualizar las cotizaciones, llamar nuevamente a simuladorDolares
+      simuladorDolares();
+    } else {
+      alert(
+        "Error al ingresar las cotizaciones. Por favor, ingrese valores numéricos válidos."
+      );
+    }
+  } else if (opcion === "r") {
+    // Opción para resetear las cotizaciones a los valores por defecto
+    cotizacionesDolar = []; // Vaciar el array de cotizaciones
+    cotizacionesDolar.push(cotizacionDolarHoy); // Agregar la cotización por defecto
+    alert("Cotizaciones reseteadas a los valores por defecto.");
+    // Después de resetear las cotizaciones, llamar nuevamente a simuladorDolares
+    simuladorDolares();
   } else {
     alert("🛑❌ Opción no válida ❌🛑");
   }
@@ -146,9 +222,9 @@ function simuladorEuros() {
       "b.- Venta de Euros 📤💶\n\n" +
       "Cotizaciones del día:\n" +
       "Compra: $" +
-      cotizacionEuroCompra +
+      cotizacionEuroHoy.cotizacionCompra +
       "\nVenta: $" +
-      cotizacionEuroVenta
+      cotizacionEuroHoy.cotizacionVenta
   );
 
   if (opcion === "a") {
