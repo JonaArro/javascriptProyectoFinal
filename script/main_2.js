@@ -117,21 +117,13 @@ console.log(listaProductosPeluche);
 function compraSonajero() {
   let continuar;
 
-  // Mostrar las opciones de sonajeros disponibles
-  /*   let opcionesDisponibles = listaProductosSonajero
-    .map((producto) => `${producto.id}. ${producto.nombre}`)
-    .join("\n");
-  alert(
-    "Opciones disponibles para comprar sonajeros:\n\n" + opcionesDisponibles
-  ); */
-
   do {
     let opcionesDisponibles = listaProductosSonajero
       .map((producto) => `${producto.id}. ${producto.nombre}`)
       .join("\n");
     let idProducto = parseInt(
       prompt(
-        "Ingrese el ID del sonajero que desea comprar:" +
+        "Ingrese el ID del sonajero que desea comprar:\n" +
           opcionesDisponibles +
           "\n"
       )
@@ -144,7 +136,7 @@ function compraSonajero() {
 
     if (productoEncontrado) {
       let cantidad = parseInt(
-        prompt(`¿Cuántos ${productoEncontrado.nombre} desea comprar?`)
+        prompt(`¿Cuántos Sonajeros ${productoEncontrado.nombre} desea comprar?`)
       );
 
       // Verificar si hay suficiente stock
@@ -161,7 +153,7 @@ function compraSonajero() {
         });
 
         alert(
-          `Se ha agregado ${cantidad} ${productoEncontrado.nombre} al carrito.`
+          `Se ha agregado la cantidad de ${cantidad} Sonajeros ${productoEncontrado.nombre} al carrito.`
         );
       } else {
         alert(
@@ -173,7 +165,7 @@ function compraSonajero() {
     }
 
     continuar = prompt(
-      "¿Desea agregar más sonajeros al carrito? (s/n)"
+      "¿Desea agregar más Productos Sonajeros al carrito? (s/n)"
     ).toLowerCase();
   } while (continuar === "s");
 
@@ -203,15 +195,16 @@ function compraSonajero() {
 function compraCunero() {
   let continuar;
 
-  // Mostrar las opciones de cuneros disponibles
-  let opcionesDisponibles = listaProductosCunero
-    .map((producto) => `${producto.id}. ${producto.nombre}`)
-    .join("\n");
-  alert("Opciones disponibles para comprar cuneros:\n\n" + opcionesDisponibles);
-
   do {
+    let opcionesDisponibles = listaProductosSonajero
+      .map((producto) => `${producto.id}. ${producto.nombre}`)
+      .join("\n");
     let idProducto = parseInt(
-      prompt("Ingrese el ID del cunero que desea comprar:")
+      prompt(
+        "Ingrese el ID del cunero que desea comprar:\n" +
+          opcionesDisponibles +
+          "\n"
+      )
     );
 
     // Buscar el producto en listaProductosCunero por ID
@@ -221,7 +214,7 @@ function compraCunero() {
 
     if (productoEncontrado) {
       let cantidad = parseInt(
-        prompt(`¿Cuántos ${productoEncontrado.nombre} desea comprar?`)
+        prompt(`¿Cuántos Cuneros ${productoEncontrado.nombre} desea comprar?`)
       );
 
       // Verificar si hay suficiente stock
@@ -238,7 +231,7 @@ function compraCunero() {
         });
 
         alert(
-          `Se ha agregado ${cantidad} ${productoEncontrado.nombre} al carrito.`
+          `Se ha agregado la cantidad de ${cantidad} Cuneros ${productoEncontrado.nombre} al carrito.`
         );
       } else {
         alert(
@@ -250,7 +243,7 @@ function compraCunero() {
     }
 
     continuar = prompt(
-      "¿Desea agregar más cuneros al carrito? (s/n)"
+      "¿Desea agregar más Productos cuneros al carrito? (s/n)"
     ).toLowerCase();
   } while (continuar === "s");
 
@@ -280,17 +273,16 @@ function compraCunero() {
 function compraPeluches() {
   let continuar;
 
-  // Mostrar las opciones de peluches disponibles
-  let opcionesDisponibles = listaProductosPeluche
-    .map((producto) => `${producto.id}. ${producto.nombre}`)
-    .join("\n");
-  alert(
-    "Opciones disponibles para comprar peluches:\n\n" + opcionesDisponibles
-  );
-
   do {
+    let opcionesDisponibles = listaProductosSonajero
+      .map((producto) => `${producto.id}. ${producto.nombre}`)
+      .join("\n");
     let idProducto = parseInt(
-      prompt("Ingrese el ID del peluche que desea comprar:")
+      prompt(
+        "Ingrese el ID del Peluche que desea comprar:\n" +
+          opcionesDisponibles +
+          "\n"
+      )
     );
 
     // Buscar el producto en listaProductosPeluche por ID
@@ -300,7 +292,7 @@ function compraPeluches() {
 
     if (productoEncontrado) {
       let cantidad = parseInt(
-        prompt(`¿Cuántos ${productoEncontrado.nombre} desea comprar?`)
+        prompt(`¿Cuántos Peluches ${productoEncontrado.nombre} desea comprar?`)
       );
 
       // Verificar si hay suficiente stock
@@ -317,7 +309,7 @@ function compraPeluches() {
         });
 
         alert(
-          `Se ha agregado ${cantidad} ${productoEncontrado.nombre} al carrito.`
+          `Se ha agregado la cantidad de ${cantidad} Peluches${productoEncontrado.nombre} al carrito.`
         );
       } else {
         alert(
@@ -329,7 +321,7 @@ function compraPeluches() {
     }
 
     continuar = prompt(
-      "¿Desea agregar más peluches al carrito? (s/n)"
+      "¿Desea agregar más Productos peluches al carrito? (s/n)"
     ).toLowerCase();
   } while (continuar === "s");
 
@@ -381,7 +373,7 @@ if (loggedIn) {
 
   do {
     option = prompt(
-      "Seleccione el tipo de producto que desea comprar \n   a.- Sonajeros 💰\n   b.- Cuneros \n   c.- Letras \n  d.- Peluches \n e.- Peluches \nx.- Salir 🚪"
+      "Seleccione el tipo de producto que desea comprar \n  a.- Sonajeros 💰\n  b.- Cuneros \n  c.- Letras \n  d.- Peluches \n  e.- Busqueda \n  p.- Pagar \n  x.- Salir 🚪"
     );
 
     switch (option) {
