@@ -48,7 +48,7 @@ function pagarCarrito() {
       alert("¡Gracias por su compra! El carrito ha sido vaciado.");
     } else {
       let eliminarProducto = confirm(
-        "¿Desea eliminar algún producto del carrito?\n\nIngrese 's' para eliminar un producto o 'n' para cancelar."
+        "¿Desea eliminar algún producto del carrito?"
       );
 
       if (eliminarProducto) {
@@ -74,7 +74,7 @@ function pagarCarrito() {
           // Obtener el índice del producto en base al número ingresado
           let index = idProducto - 1;
           let eliminado = carrito.splice(index, 1)[0];
-          alert(`Se ha eliminado ${eliminado.nombre} del carrito.`);
+          alert(`Se ha eliminado el producto ${eliminado.nombre} del carrito.`);
         } else {
           alert("Número de producto inválido.");
         }
@@ -85,11 +85,56 @@ function pagarCarrito() {
   }
 }
 
+function buscarProducto() {
+  let textoBusqueda = prompt("Ingrese el nombre del producto a buscar:");
+
+  let productosEncontrados = [];
+
+  // Buscar en la lista de Sonajeros
+  productosEncontrados = productosEncontrados.concat(
+    listaProductosSonajero.filter((producto) =>
+      producto.nombre.toLowerCase().includes(textoBusqueda.toLowerCase())
+    )
+  );
+
+  // Buscar en la lista de Cuneros
+  productosEncontrados = productosEncontrados.concat(
+    listaProductosCunero.filter((producto) =>
+      producto.nombre.toLowerCase().includes(textoBusqueda.toLowerCase())
+    )
+  );
+
+  // Buscar en la lista de Letras
+  productosEncontrados = productosEncontrados.concat(
+    listaProductosLetras.filter((producto) =>
+      producto.nombre.toLowerCase().includes(textoBusqueda.toLowerCase())
+    )
+  );
+
+  // Buscar en la lista de Peluches
+  productosEncontrados = productosEncontrados.concat(
+    listaProductosPeluche.filter((producto) =>
+      producto.nombre.toLowerCase().includes(textoBusqueda.toLowerCase())
+    )
+  );
+
+  if (productosEncontrados.length > 0) {
+    // Mostrar detalles de los productos encontrados
+    let mensaje = "Productos encontrados:\n\n";
+    productosEncontrados.forEach((producto) => {
+      mensaje += `Nombre: ${producto.nombre}\nCategoría: ${producto.categoria}\nPrecio: $${producto.precio}\nStock: ${producto.stock}\n\n`;
+    });
+    alert(mensaje);
+  } else {
+    alert("No se encontraron productos que coincidan con la búsqueda.");
+  }
+}
+
 const productosSonajeros = [
-  [1, "Perro", "Sonajero", "animal", 2500, 10, "imagen1.jpg"],
-  [2, "Zorro", "Sonajero", "animal", 2500, 10, "imagen1.jpg"],
-  [3, "Gallo", "Sonajero", "animal", 2500, 10, "imagen1.jpg"],
-  [4, "Vaca", "Sonajero", "animal", 2500, 10, "imagen1.jpg"],
+  [1, "Perro", "Sonajero", "Animal", 10000, 10, "imagen1.jpg"],
+  [2, "Zorro", "Sonajero", "Animal", 10000, 10, "imagen1.jpg"],
+  [3, "Gallo", "Sonajero", "Animal", 7000, 10, "imagen1.jpg"],
+  [4, "Vaca", "Sonajero", "Animal", 10000, 10, "imagen1.jpg"],
 ];
 
 // Crear productos usando un bucle
@@ -110,11 +155,11 @@ for (const data of productosSonajeros) {
 console.log(listaProductosSonajero);
 
 const productosCunero = [
-  [1, "Estrellas y planetas", "Cunero", "universo", 2500, 10, "imagen1.jpg"],
-  [2, "Estrellas", "Cunero", "universo", 2500, 10, "imagen1.jpg"],
-  [3, "Animales de la Granja", "Cunero", "animal", 2500, 10, "imagen1.jpg"],
-  [4, "Animales del mar", "Cunero", "animal", 2500, 10, "imagen1.jpg"],
-  [5, "Dinosaurios", "Cunero", "dinosaurio", 2500, 10, "imagen1.jpg"],
+  [1, "Estrellas y planetas", "Cunero", "Universo", 35000, 10, "imagen1.jpg"],
+  [2, "Estrellas", "Cunero", "Universo", 35000, 10, "imagen1.jpg"],
+  [3, "Animales de la Granja", "Cunero", "Animal", 35000, 10, "imagen1.jpg"],
+  [4, "Animales del mar", "Cunero", "Animal", 35000, 10, "imagen1.jpg"],
+  [5, "Dinosaurios", "Cunero", "Dinosaurio", 35000, 10, "imagen1.jpg"],
 ];
 
 // Crear productos usando un bucle
@@ -135,10 +180,10 @@ for (const data of productosCunero) {
 console.log(listaProductosCunero);
 
 const productosLetras = [
-  [1, "Letra", "Letra", "letra", 2500, 10, "imagen1.jpg"],
-  [2, "Estrella", "Letra", "universo", 2500, 10, "imagen1.jpg"],
-  [3, "Esfera", "Letra", "figura geometrica", 2500, 10, "imagen1.jpg"],
-  [4, "borla", "Letra", "general", 2500, 10, "imagen1.jpg"],
+  [1, "Letra", "Palabra", "Letra", 1500, 0, "imagen1.jpg"], //Los nombres son a pedido no hay Stock
+  [2, "Estrella", "Palabra", "Universo", 500, 10, "imagen1.jpg"],
+  [3, "Esfera", "Palabra", "Figura geométrica", 500, 10, "imagen1.jpg"],
+  [4, "Borla", "Palabra", "General", 500, 10, "imagen1.jpg"],
 ];
 
 // Crear productos usando un bucle
@@ -159,13 +204,13 @@ for (const data of productosLetras) {
 console.log(listaProductosLetras);
 
 const productosPeluches = [
-  [1, "Perro", "Peluche", "animal", 2500, 10, "imagen1.jpg"],
-  [2, "Zorro", "Peluche", "animal", 2500, 10, "imagen1.jpg"],
-  [3, "Jirafa", "Peluche", "animal", 2500, 10, "imagen1.jpg"],
-  [4, "Elefante", "Peluche", "animal", 2500, 10, "imagen1.jpg"],
-  [5, "T-Rex", "Peluche", "dinosaurio", 2500, 10, "imagen1.jpg"],
-  [6, "Brontosaurio", "Peluche", "dinosaurio", 2500, 10, "imagen1.jpg"],
-  [7, "Triceratop", "Peluche", "dinosaurio", 2500, 10, "imagen1.jpg"],
+  [1, "Perro", "Peluche", "Animal", 10000, 10, "imagen1.jpg"],
+  [2, "Zorro", "Peluche", "Animal", 10000, 10, "imagen1.jpg"],
+  [3, "Jirafa", "Peluche", "Animal", 10000, 10, "imagen1.jpg"],
+  [4, "Elefante", "Peluche", "Animal", 10000, 10, "imagen1.jpg"],
+  [5, "T-Rex", "Peluche", "Dinosaurio", 10000, 10, "imagen1.jpg"],
+  [6, "Brontosaurio", "Peluche", "Dinosaurio", 10000, 10, "imagen1.jpg"],
+  [7, "Triceratop", "Peluche", "Dinosaurio", 10000, 10, "imagen1.jpg"],
 ];
 
 // Crear productos usando un bucle
@@ -194,7 +239,7 @@ function compraSonajero() {
       .join("\n");
     let idProducto = parseInt(
       prompt(
-        "Ingrese el ID del sonajero que desea comprar:\n" +
+        "Ingrese el ID del Sonajero que desea comprar:\n" +
           opcionesDisponibles +
           "\n"
       )
@@ -207,7 +252,9 @@ function compraSonajero() {
 
     if (productoEncontrado) {
       let cantidad = parseInt(
-        prompt(`¿Cuántos Sonajeros ${productoEncontrado.nombre} desea comprar?`)
+        prompt(
+          `¿Cuántos Sonajeros de ${productoEncontrado.nombre} desea comprar?`
+        )
       );
 
       // Verificar si hay suficiente stock
@@ -225,11 +272,11 @@ function compraSonajero() {
         });
 
         alert(
-          `Se ha agregado la cantidad de ${cantidad} Sonajeros ${productoEncontrado.nombre} al carrito.`
+          `Se ha agregado la cantidad de ${cantidad} Sonajero/s de ${productoEncontrado.nombre} al carrito.`
         );
       } else {
         alert(
-          `No hay suficiente stock disponible para ${productoEncontrado.nombre}.`
+          `No hay suficiente stock disponible para Sonajeros de ${productoEncontrado.nombre}.`
         );
       }
     } else {
@@ -253,7 +300,7 @@ function compraSonajero() {
         carrito
           .map(
             (item) =>
-              `Producto ${item.categoria} ${item.nombre} - Cantidad: ${item.cantidad} - Precio Unitario: $${item.precioUnitario}`
+              `Producto ${item.categoria} de ${item.nombre} - Cantidad: ${item.cantidad} - Precio Unitario: $${item.precioUnitario}`
           )
           .join("\n") +
         "\n\nTotal a pagar: $" +
@@ -286,7 +333,9 @@ function compraCunero() {
 
     if (productoEncontrado) {
       let cantidad = parseInt(
-        prompt(`¿Cuántos Cuneros ${productoEncontrado.nombre} desea comprar?`)
+        prompt(
+          `¿Cuántos Cuneros de ${productoEncontrado.nombre} desea comprar?`
+        )
       );
 
       // Verificar si hay suficiente stock
@@ -304,15 +353,15 @@ function compraCunero() {
         });
 
         alert(
-          `Se ha agregado la cantidad de ${cantidad} Cuneros ${productoEncontrado.nombre} al carrito.`
+          `Se ha agregado la cantidad de ${cantidad} CUneros/s de ${productoEncontrado.nombre} al carrito.`
         );
       } else {
         alert(
-          `No hay suficiente stock disponible para ${productoEncontrado.nombre}.`
+          `No hay suficiente stock disponible para Cuneros de${productoEncontrado.nombre}.`
         );
       }
     } else {
-      alert("El ID ingresado no corresponde a ningún cunero.");
+      alert("El ID ingresado no corresponde a ningún Cunero.");
     }
 
     continuar = prompt(
@@ -332,9 +381,155 @@ function compraCunero() {
         carrito
           .map(
             (item) =>
-              `Producto ${item.categoria} ${item.nombre} - Cantidad: ${item.cantidad} - Precio Unitario: $${item.precioUnitario}`
+              `Producto ${item.categoria} de ${item.nombre} - Cantidad: ${item.cantidad} - Precio Unitario: $${item.precioUnitario}`
           )
           .join("\n") +
+        "\n\nTotal a pagar: $" +
+        total.toFixed(2)
+    );
+  } else {
+    alert("El carrito está vacío.");
+  }
+}
+
+function compraLetrasPorPalabra() {
+  let palabra = prompt("Ingrese el nombre que desea adquirir:");
+  let totalLetrasAgregadas = palabra.length; // Total de letras agregadas al carrito
+
+  // Encontrar el producto con id: 1 en la lista de productos de letras
+  let productoEncontrado = listaProductosLetras.find(
+    (producto) => producto.id === 1
+  );
+
+  // Verificar si se encontró el producto
+  if (productoEncontrado) {
+    // Agregar el producto al carrito global
+    carrito.push({
+      id: productoEncontrado.id,
+      nombre: productoEncontrado.nombre,
+      categoria: productoEncontrado.categoria,
+      precioUnitario: productoEncontrado.precio,
+      cantidad: totalLetrasAgregadas, // Cantidad total de letras
+    });
+
+    // Mostrar mensaje de alerta
+    alert(
+      `Se ha agregado la cantidad de ${totalLetrasAgregadas} letras al carrito.`
+    );
+
+    // Preguntar si desea agregar productos al inicio y al final de la palabra
+    let opcion = prompt(
+      "¿Desea agregar decoraciones al inicio y al final de la palabra? (s/n)"
+    ).toLowerCase();
+
+    if (opcion === "s") {
+      mostrarProductosDisponibles();
+    }
+  } else {
+    alert(`No hay producto disponible para la letra.`);
+  }
+}
+
+function mostrarProductosDisponibles() {
+  let productosDisponibles = listaProductosLetras.filter(
+    (producto) => producto.id >= 2 && producto.id <= 4
+  );
+
+  let mensaje =
+    "Decoraciones disponibles para agregar al inicio y al final de la palabra:\n\n";
+
+  for (const producto of productosDisponibles) {
+    mensaje += `${producto.id}. ${producto.nombre}\n`;
+  }
+
+  let seleccionInicio = parseInt(
+    prompt(mensaje + "\nElija el ID de la Decoración para agregar al inicio:")
+  );
+  let seleccionFinal = parseInt(
+    prompt(mensaje + "\nElija el ID de la Decoración para agregar al final:")
+  );
+
+  agregarProductosInicioYFin(seleccionInicio, seleccionFinal);
+}
+
+function agregarProductosInicioYFin(idInicio, idFinal) {
+  let productosAgregados = 0;
+
+  // Buscar los productos seleccionados en la lista de productos de letras
+  let productoInicio = listaProductosLetras.find(
+    (producto) => producto.id === idInicio
+  );
+
+  let productoFinal = listaProductosLetras.find(
+    (producto) => producto.id === idFinal
+  );
+
+  // Verificar si se encontraron ambos productos
+  if (productoInicio && productoFinal) {
+    // Verificar si hay suficiente stock para ambos productos
+    if (productoInicio.stock >= 1 && productoFinal.stock >= 1) {
+      // Restar la cantidad seleccionada del stock de cada producto
+      productoInicio.stock -= 1;
+      productoFinal.stock -= 1;
+
+      // Agregar cada producto al carrito con una cantidad de 1
+      carrito.push({
+        id: productoInicio.id,
+        nombre: productoInicio.nombre,
+        categoria: productoInicio.categoria,
+        precioUnitario: productoInicio.precio,
+        cantidad: 1,
+      });
+
+      carrito.push({
+        id: productoFinal.id,
+        nombre: productoFinal.nombre,
+        categoria: productoFinal.categoria,
+        precioUnitario: productoFinal.precio,
+        cantidad: 1,
+      });
+
+      productosAgregados += 2;
+    } else {
+      alert(
+        "No hay suficiente stock disponible para agregar al inicio y al final de la palabra."
+      );
+    }
+  } else {
+    alert("Los productos seleccionados no están disponibles.");
+  }
+
+  // Mostrar mensaje indicando la cantidad de productos agregados al carrito
+  if (productosAgregados > 0) {
+    alert(
+      `Se han agregado ${productosAgregados} productos al inicio y al final de la palabra.`
+    );
+    mostrarResumenCarrito(); // Mostrar resumen del carrito
+  } else {
+    alert("No se agregaron productos al inicio y al final de la palabra.");
+  }
+}
+
+function mostrarResumenCarrito() {
+  // Mostrar el resumen del carrito
+  if (carrito.length > 0) {
+    let total = carrito.reduce(
+      (acc, item) => acc + item.precioUnitario * item.cantidad,
+      0
+    );
+
+    let carritoParcial = carrito
+      .map(
+        (item) =>
+          `Producto ${item.categoria} ${item.nombre} - Cantidad: ${
+            item.cantidad
+          } - Precio Unitario: $${item.precioUnitario * item.cantidad}`
+      )
+      .join("\n");
+
+    alert(
+      "Resumen Parcial del carrito de compras:\n\n" +
+        carritoParcial +
         "\n\nTotal a pagar: $" +
         total.toFixed(2)
     );
@@ -365,7 +560,9 @@ function compraPeluches() {
 
     if (productoEncontrado) {
       let cantidad = parseInt(
-        prompt(`¿Cuántos Peluches ${productoEncontrado.nombre} desea comprar?`)
+        prompt(
+          `¿Cuántos Peluches de ${productoEncontrado.nombre} desea comprar?`
+        )
       );
 
       // Verificar si hay suficiente stock
@@ -383,11 +580,11 @@ function compraPeluches() {
         });
 
         alert(
-          `Se ha agregado la cantidad de ${cantidad} Peluches${productoEncontrado.nombre} al carrito.`
+          `Se ha agregado la cantidad de ${cantidad} Peluche/s de ${productoEncontrado.nombre} al carrito.`
         );
       } else {
         alert(
-          `No hay suficiente stock disponible para ${productoEncontrado.nombre}.`
+          `No hay suficiente stock disponible para Peluches de ${productoEncontrado.nombre}.`
         );
       }
     } else {
@@ -395,7 +592,7 @@ function compraPeluches() {
     }
 
     continuar = prompt(
-      "¿Desea agregar más Productos peluches al carrito? (s/n)"
+      "¿Desea agregar más Productos Peluches al carrito? (s/n)"
     ).toLowerCase();
   } while (continuar === "s");
 
@@ -432,7 +629,7 @@ for (let i = 0; i < loginAttempts; i++) {
 
   if (parseInt(enteredPassword) === password) {
     loggedIn = true;
-    alert("🖥️⌨ Bienvenido a Luani ⌨🖥️");
+    alert("🖥️⌨ Bienvenido a Luani Amigurumis ⌨🖥️");
     break; // Sale del bucle si la contraseña es correcta
   } else {
     alert(
@@ -447,7 +644,7 @@ if (loggedIn) {
 
   do {
     option = prompt(
-      "Seleccione el tipo de producto que desea comprar \n  a.- Sonajeros 💰\n  b.- Cuneros \n  c.- Letras \n  d.- Peluches \n  e.- Busqueda \n  p.- Pagar \n  x.- Salir 🚪"
+      "Seleccione el tipo de Amigurumi que desea comprar \n  a.- Sonajeros 💰\n  b.- Cuneros \n  c.- Nombres \n  d.- Peluches \n---------------\n  e.- Busqueda \n---------------\n  p.- Pagar \n---------------\n  x.- Salir 🚪"
     );
 
     switch (option) {
@@ -460,7 +657,7 @@ if (loggedIn) {
         break;
 
       case "c":
-        compraLetras();
+        compraLetrasPorPalabra();
         break;
 
       case "d":
