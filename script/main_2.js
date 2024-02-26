@@ -130,6 +130,22 @@ function buscarProducto() {
   }
 }
 
+function confirmarSalirSinFinalizarCompra() {
+  if (carrito.length > 0) {
+    let confirmacionSalir = confirm(
+      "Aún tienes productos en el carrito. ¿Estás seguro de salir sin finalizar la compra?"
+    );
+    if (confirmacionSalir) {
+      alert("Gracias por visitarnos. ¡Hasta luego!");
+      return true;
+    } else {
+      return false;
+    }
+  } else {
+    return true;
+  }
+}
+
 const productosSonajeros = [
   [1, "Perro", "Sonajero", "Animal", 10000, 10, "imagen1.jpg"],
   [2, "Zorro", "Sonajero", "Animal", 10000, 10, "imagen1.jpg"],
@@ -673,8 +689,12 @@ if (loggedIn) {
         break;
 
       case "x":
-        alert("➡️➡️Sistema de Ventas Amigurumi");
-        break;
+        if (confirmarSalirSinFinalizarCompra()) {
+          alert("➡️➡️Sistema de Ventas Amigurumi");
+          break;
+        }
+        // Si el usuario decide no salir, continúa con el bucle
+        continue;
 
       default:
         alert("🛑❌ Opción no válida ❌🛑");
