@@ -20,12 +20,23 @@ class Productos {
   }
 }
 
+function calcularIVA(total) {
+  // Calcular el impuesto del 21% del total
+  let iva = total * 0.21;
+  // Redondear el resultado del cálculo del IVA
+  iva = Math.round(iva);
+  return iva;
+}
+
 function pagarCarrito() {
   if (carrito.length > 0) {
-    let total = carrito.reduce(
+    let subtotal = carrito.reduce(
       (acc, item) => acc + item.precioUnitario * item.cantidad,
       0
     );
+
+    let iva = calcularIVA(subtotal);
+    let total = subtotal + iva;
 
     let confirmation = confirm(
       "Resumen del carrito de compras:\n\n" +
@@ -37,7 +48,11 @@ function pagarCarrito() {
               } - Precio Unitario: $${item.precioUnitario}`
           )
           .join("\n") +
-        "\n\nTotal a pagar: $" +
+        "\n\nSubtotal: $" +
+        subtotal.toFixed(2) +
+        "\nIVA (21%): $" +
+        iva.toFixed(2) +
+        "\nTotal a pagar (incluido IVA): $" +
         total.toFixed(2) +
         "\n\n¿Desea confirmar la compra?"
     );
@@ -261,6 +276,12 @@ function compraSonajero() {
       )
     );
 
+    // Verificar si el usuario canceló la entrada
+    if (idProducto === null) {
+      alert("Se canceló la operación.");
+      return; // Salir de la función
+    }
+
     // Buscar el producto en listaProductosSonajero
     let productoEncontrado = listaProductosSonajero.find(
       (producto) => producto.id === idProducto
@@ -272,6 +293,12 @@ function compraSonajero() {
           `¿Cuántos Sonajeros de ${productoEncontrado.nombre} desea comprar?`
         )
       );
+
+      // Verificar si el usuario canceló la entrada
+      if (cantidad === null) {
+        alert("Se canceló la operación.");
+        return; // Salir de la función
+      }
 
       // Verificar si hay suficiente stock
       if (cantidad <= productoEncontrado.stock) {
@@ -294,6 +321,7 @@ function compraSonajero() {
         alert(
           `No hay suficiente stock disponible para Sonajeros de ${productoEncontrado.nombre}.`
         );
+        continue; // Volver al inicio del bucle
       }
     } else {
       alert("El ID ingresado no corresponde a ningún sonajero.");
@@ -301,7 +329,21 @@ function compraSonajero() {
 
     continuar = prompt(
       "¿Desea agregar más Productos Sonajeros al carrito? (s/n)"
-    ).toLowerCase();
+    );
+
+    // Verificar si el usuario canceló la entrada
+    if (continuar === null) {
+      alert("Se canceló la operación.");
+      return; // Salir de la función
+    }
+
+    // Convertir a minúsculas y verificar la respuesta solo si no es null
+    continuar = continuar.toLowerCase();
+
+    // Verificar si la respuesta es válida
+    if (continuar !== "s" && continuar !== "n") {
+      alert("Por favor, ingrese una respuesta válida (s/n).");
+    }
   } while (continuar === "s");
 
   // Mostrar el resumen del carrito
