@@ -46,7 +46,7 @@ for (const data of productosSonajeros) {
 const productosCunero = [
   [
     1,
-    "Estrellas y planetas ⭐🪐🌎",
+    "Estrellas y planetas ✨🪐🌎",
     "Cunero",
     "Universo",
     35000,
@@ -56,22 +56,14 @@ const productosCunero = [
   [2, "Estrellas ✨", "Cunero", "Universo", 35000, 10, "imagen1.jpg"],
   [
     3,
-    "Animales de la Granja 🐮🐷🐴🐔",
+    "Animales de la Granja 🐮🐴🐷",
     "Cunero",
     "Animal",
     35000,
     10,
     "imagen1.jpg",
   ],
-  [
-    4,
-    "Animales del mar 🦈🐋🐬🐠",
-    "Cunero",
-    "Animal",
-    35000,
-    10,
-    "imagen1.jpg",
-  ],
+  [4, "Animales del mar 🦈🐬🐠", "Cunero", "Animal", 35000, 10, "imagen1.jpg"],
   [5, "Dinosaurios 🦕🦖", "Cunero", "Dinosaurio", 35000, 10, "imagen1.jpg"],
 ];
 
@@ -91,7 +83,7 @@ for (const data of productosCunero) {
 }
 
 const productosLetras = [
-  [1, "Letra 🔠🔠", "Palabra", "Letra", 1500, 0, "imagen1.jpg"], //Los nombres son a pedido no hay Stock
+  [1, "Letra 🔠", "Palabra", "Letra", 1500, 0, "imagen1.jpg"], //Los nombres son a pedido no hay Stock
   [2, "Estrella 🌟", "Palabra", "Universo", 500, 10, "imagen1.jpg"],
   [3, "Esfera 🏐", "Palabra", "Figura geométrica", 500, 10, "imagen1.jpg"],
   [4, "Borla 🧶", "Palabra", "General", 500, 10, "imagen1.jpg"],
@@ -276,7 +268,7 @@ function buscarProducto() {
 function confirmarSalirSinFinalizarCompra() {
   if (carrito.length > 0) {
     let confirmacionSalir = confirm(
-      "Aún tienes productos en el carrito. ¿Estás seguro de salir sin finalizar la compra?"
+      "🚨🚨 Aún tienes productos en el carrito. ¿Estás seguro de salir sin finalizar la compra?🚨🚨"
     );
     if (confirmacionSalir) {
       alert("Gracias por visitarnos.!!!");
@@ -401,7 +393,7 @@ function compraSonajero() {
     );
 
     alert(
-      "🛒🛒 Resumen Parcial del carrito de compras:\n\n" +
+      "🛒🛒 Resumen Parcial del carrito de compras:\n❗Los importes no incluyen IVA ❗\n\n" +
         carrito
           .map(
             (item) =>
@@ -521,7 +513,7 @@ function compraCunero() {
     );
 
     alert(
-      "🛒🛒 Resumen Parcial del carrito de compras:\n\n" +
+      "🛒🛒 Resumen Parcial del carrito de compras:\n❗Los importes no incluyen IVA ❗\n\n" +
         carrito
           .map(
             (item) =>
@@ -762,7 +754,7 @@ function compraPeluches() {
     );
 
     alert(
-      "🛒🛒 Resumen Parcial del carrito de compras:\n\n" +
+      "🛒🛒 Resumen Parcial del carrito de compras:\n❗Los importes no incluyen IVA ❗\n\n" +
         carrito
           .map(
             (item) =>
@@ -795,7 +787,7 @@ function mostrarResumenCarrito() {
       .join("\n");
 
     alert(
-      "🛒🛒 Resumen Parcial del carrito de compras:\n\n" +
+      "🛒🛒 Resumen Parcial del carrito de compras:\n❗Los importes no incluyen IVA ❗\n\n" +
         carritoParcial +
         "\n\nTotal a pagar: $" +
         total.toFixed(2)
@@ -815,7 +807,7 @@ for (let i = 0; i < loginAttempts; i++) {
 
   if (parseInt(enteredPassword) === password) {
     loggedIn = true;
-    alert("🪢🪡Bienvenido a Luani Amigurumis 🪡🪢");
+    alert("🪢🪡Bienvenido a LUANI Amigurumis 🪡🪢");
     break; // Sale del bucle si la contraseña es correcta
   } else {
     alert(
@@ -832,6 +824,8 @@ if (loggedIn) {
     option = prompt(
       "Seleccione el tipo de Amigurumi que desea comprar \n  a.- Sonajeros \n  b.- Cuneros \n  c.- Nombres \n  d.- Peluches 🧸\n➖➖➖➖➖➖➖➖\n  e.- 🔎 Busqueda 🔎 \n➖➖➖➖➖➖➖➖\n  p.- 💲 Pagar 💲 \n➖➖➖➖➖➖➖➖\n  x.-🚪 Salir 🚪"
     );
+
+    option = option.toLowerCase();
 
     switch (option) {
       case "a":
