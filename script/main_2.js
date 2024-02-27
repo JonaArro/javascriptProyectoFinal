@@ -1,5 +1,5 @@
 //Variables principales
-let password = 1;
+let password = 1982;
 let loginAttempts = 4; // Número máximo de intentos
 let loggedIn = false;
 let carrito = []; // Definir el carrito
@@ -22,10 +22,10 @@ class Productos {
 }
 //Declaración, seteo y Carga de Arrays
 const productosSonajeros = [
-  [1, "Perro", "Sonajero", "Animal", 10000, 10, "imagen1.jpg"],
-  [2, "Zorro", "Sonajero", "Animal", 10000, 10, "imagen1.jpg"],
-  [3, "Gallo", "Sonajero", "Animal", 7000, 10, "imagen1.jpg"],
-  [4, "Vaca", "Sonajero", "Animal", 10000, 10, "imagen1.jpg"],
+  [1, "Perro 🐶", "Sonajero", "Animal", 10000, 10, "imagen1.jpg"],
+  [2, "Zorro 🦊", "Sonajero", "Animal", 10000, 10, "imagen1.jpg"],
+  [3, "Gallo 🐔", "Sonajero", "Animal", 7000, 10, "imagen1.jpg"],
+  [4, "Vaca 🐮", "Sonajero", "Animal", 10000, 10, "imagen1.jpg"],
 ];
 
 for (const data of productosSonajeros) {
@@ -44,11 +44,35 @@ for (const data of productosSonajeros) {
 }
 
 const productosCunero = [
-  [1, "Estrellas y planetas", "Cunero", "Universo", 35000, 10, "imagen1.jpg"],
-  [2, "Estrellas", "Cunero", "Universo", 35000, 10, "imagen1.jpg"],
-  [3, "Animales de la Granja", "Cunero", "Animal", 35000, 10, "imagen1.jpg"],
-  [4, "Animales del mar", "Cunero", "Animal", 35000, 10, "imagen1.jpg"],
-  [5, "Dinosaurios", "Cunero", "Dinosaurio", 35000, 10, "imagen1.jpg"],
+  [
+    1,
+    "Estrellas y planetas ⭐🪐🌎",
+    "Cunero",
+    "Universo",
+    35000,
+    10,
+    "imagen1.jpg",
+  ],
+  [2, "Estrellas ✨", "Cunero", "Universo", 35000, 10, "imagen1.jpg"],
+  [
+    3,
+    "Animales de la Granja 🐮🐷🐴🐔",
+    "Cunero",
+    "Animal",
+    35000,
+    10,
+    "imagen1.jpg",
+  ],
+  [
+    4,
+    "Animales del mar 🦈🐋🐬🐠",
+    "Cunero",
+    "Animal",
+    35000,
+    10,
+    "imagen1.jpg",
+  ],
+  [5, "Dinosaurios 🦕🦖", "Cunero", "Dinosaurio", 35000, 10, "imagen1.jpg"],
 ];
 
 for (const data of productosCunero) {
@@ -67,10 +91,10 @@ for (const data of productosCunero) {
 }
 
 const productosLetras = [
-  [1, "Letra", "Palabra", "Letra", 1500, 0, "imagen1.jpg"], //Los nombres son a pedido no hay Stock
-  [2, "Estrella", "Palabra", "Universo", 500, 10, "imagen1.jpg"],
-  [3, "Esfera", "Palabra", "Figura geométrica", 500, 10, "imagen1.jpg"],
-  [4, "Borla", "Palabra", "General", 500, 10, "imagen1.jpg"],
+  [1, "Letra 🔠🔠", "Palabra", "Letra", 1500, 0, "imagen1.jpg"], //Los nombres son a pedido no hay Stock
+  [2, "Estrella 🌟", "Palabra", "Universo", 500, 10, "imagen1.jpg"],
+  [3, "Esfera 🏐", "Palabra", "Figura geométrica", 500, 10, "imagen1.jpg"],
+  [4, "Borla 🧶", "Palabra", "General", 500, 10, "imagen1.jpg"],
 ];
 
 for (const data of productosLetras) {
@@ -89,12 +113,12 @@ for (const data of productosLetras) {
 }
 
 const productosPeluches = [
-  [1, "Perro", "Peluche", "Animal", 10000, 10, "imagen1.jpg"],
-  [2, "Zorro", "Peluche", "Animal", 10000, 10, "imagen1.jpg"],
-  [3, "Jirafa", "Peluche", "Animal", 10000, 10, "imagen1.jpg"],
-  [4, "Elefante", "Peluche", "Animal", 10000, 10, "imagen1.jpg"],
-  [5, "T-Rex", "Peluche", "Dinosaurio", 10000, 10, "imagen1.jpg"],
-  [6, "Brontosaurio", "Peluche", "Dinosaurio", 10000, 10, "imagen1.jpg"],
+  [1, "Perro 🐕", "Peluche", "Animal", 10000, 10, "imagen1.jpg"],
+  [2, "Zorro 🦊", "Peluche", "Animal", 10000, 10, "imagen1.jpg"],
+  [3, "Jirafa 🦒", "Peluche", "Animal", 10000, 10, "imagen1.jpg"],
+  [4, "Elefante 🐘", "Peluche", "Animal", 10000, 10, "imagen1.jpg"],
+  [5, "T-Rex 🦖", "Peluche", "Dinosaurio", 10000, 10, "imagen1.jpg"],
+  [6, "Brontosaurio 🦕", "Peluche", "Dinosaurio", 10000, 10, "imagen1.jpg"],
   [7, "Triceratop", "Peluche", "Dinosaurio", 10000, 10, "imagen1.jpg"],
 ];
 
@@ -191,18 +215,20 @@ function pagarCarrito() {
           let eliminado = carrito.splice(index, 1)[0];
           alert(`Se ha eliminado el producto ${eliminado.nombre} del carrito.`);
         } else {
-          alert("Número de producto inválido.");
+          alert("🚫Número de producto inválido.🚫");
         }
       }
     }
   } else {
-    alert("El carrito está vacío. No hay nada que pagar.");
+    alert("El carrito está vacío 📭. No hay nada que pagar 🤷🏻‍♂️.");
   }
 }
 
 //Buscar Productos
 function buscarProducto() {
-  let textoBusqueda = prompt("Ingrese el nombre del producto a buscar:");
+  let textoBusqueda = prompt(
+    "🔎🔎Ingrese el nombre del producto a buscar🔎🔎:"
+  );
 
   let productosEncontrados = [];
 
@@ -253,7 +279,7 @@ function confirmarSalirSinFinalizarCompra() {
       "Aún tienes productos en el carrito. ¿Estás seguro de salir sin finalizar la compra?"
     );
     if (confirmacionSalir) {
-      alert("Gracias por visitarnos. ¡Hasta luego!");
+      alert("Gracias por visitarnos.!!!");
       return true;
     } else {
       return false;
@@ -375,7 +401,7 @@ function compraSonajero() {
     );
 
     alert(
-      "Resumen Parcial del carrito de compras:\n\n" +
+      "🛒🛒 Resumen Parcial del carrito de compras:\n\n" +
         carrito
           .map(
             (item) =>
@@ -495,7 +521,7 @@ function compraCunero() {
     );
 
     alert(
-      "Resumen Parcial del carrito de compras:\n\n" +
+      "🛒🛒 Resumen Parcial del carrito de compras:\n\n" +
         carrito
           .map(
             (item) =>
@@ -736,7 +762,7 @@ function compraPeluches() {
     );
 
     alert(
-      "Resumen Parcial del carrito de compras:\n\n" +
+      "🛒🛒 Resumen Parcial del carrito de compras:\n\n" +
         carrito
           .map(
             (item) =>
@@ -769,7 +795,7 @@ function mostrarResumenCarrito() {
       .join("\n");
 
     alert(
-      "Resumen Parcial del carrito de compras:\n\n" +
+      "🛒🛒 Resumen Parcial del carrito de compras:\n\n" +
         carritoParcial +
         "\n\nTotal a pagar: $" +
         total.toFixed(2)
@@ -782,14 +808,14 @@ function mostrarResumenCarrito() {
 // ------------------------------------
 // Código Principal
 // ------------------------------------
-alert("🏦 Sistema de Ventas Amigurumi 🏦");
+alert("🧶 Sistema de Ventas de Amigurumis 🧶");
 
 for (let i = 0; i < loginAttempts; i++) {
   let enteredPassword = prompt("🔑🔑 Ingrese su password 🔑🔑");
 
   if (parseInt(enteredPassword) === password) {
     loggedIn = true;
-    alert("🖥️⌨ Bienvenido a Luani Amigurumis ⌨🖥️");
+    alert("🪢🪡Bienvenido a Luani Amigurumis 🪡🪢");
     break; // Sale del bucle si la contraseña es correcta
   } else {
     alert(
@@ -804,7 +830,7 @@ if (loggedIn) {
 
   do {
     option = prompt(
-      "Seleccione el tipo de Amigurumi que desea comprar \n  a.- Sonajeros 💰\n  b.- Cuneros \n  c.- Nombres \n  d.- Peluches \n---------------\n  e.- Busqueda \n---------------\n  p.- Pagar \n---------------\n  x.- Salir 🚪"
+      "Seleccione el tipo de Amigurumi que desea comprar \n  a.- Sonajeros \n  b.- Cuneros \n  c.- Nombres \n  d.- Peluches 🧸\n➖➖➖➖➖➖➖➖\n  e.- 🔎 Busqueda 🔎 \n➖➖➖➖➖➖➖➖\n  p.- 💲 Pagar 💲 \n➖➖➖➖➖➖➖➖\n  x.-🚪 Salir 🚪"
     );
 
     switch (option) {
@@ -834,7 +860,7 @@ if (loggedIn) {
 
       case "x":
         if (confirmarSalirSinFinalizarCompra()) {
-          alert("➡️➡️Sistema de Ventas Amigurumi");
+          alert("➡️➡️Saliendo del Sistema de Ventas Amigurumi");
           break;
         }
         // Si el usuario decide no salir, continúa con el bucle
