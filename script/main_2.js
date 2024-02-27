@@ -1,13 +1,14 @@
+//Variables principales
 let password = 1;
 let loginAttempts = 4; // Número máximo de intentos
 let loggedIn = false;
 let carrito = []; // Definir el carrito
-
 const listaProductosSonajero = [];
 const listaProductosCunero = [];
 const listaProductosLetras = [];
 const listaProductosPeluche = [];
 
+//Clase Producto
 class Productos {
   constructor(id, nombre, categoria, subCategoria, precio, stock, img) {
     this.id = id;
@@ -19,27 +20,126 @@ class Productos {
     this.img = img;
   }
 }
+//Declaración, seteo y Carga de Arrays
+const productosSonajeros = [
+  [1, "Perro", "Sonajero", "Animal", 10000, 10, "imagen1.jpg"],
+  [2, "Zorro", "Sonajero", "Animal", 10000, 10, "imagen1.jpg"],
+  [3, "Gallo", "Sonajero", "Animal", 7000, 10, "imagen1.jpg"],
+  [4, "Vaca", "Sonajero", "Animal", 10000, 10, "imagen1.jpg"],
+];
 
+for (const data of productosSonajeros) {
+  const [id, nombre, categoria, subCategoria, precio, stock, img] = data;
+  listaProductosSonajero.push(
+    new Productos(
+      id,
+      nombre,
+      categoria,
+      subCategoria,
+      parseFloat(precio),
+      stock,
+      img
+    )
+  );
+}
+
+const productosCunero = [
+  [1, "Estrellas y planetas", "Cunero", "Universo", 35000, 10, "imagen1.jpg"],
+  [2, "Estrellas", "Cunero", "Universo", 35000, 10, "imagen1.jpg"],
+  [3, "Animales de la Granja", "Cunero", "Animal", 35000, 10, "imagen1.jpg"],
+  [4, "Animales del mar", "Cunero", "Animal", 35000, 10, "imagen1.jpg"],
+  [5, "Dinosaurios", "Cunero", "Dinosaurio", 35000, 10, "imagen1.jpg"],
+];
+
+for (const data of productosCunero) {
+  const [id, nombre, categoria, subCategoria, precio, stock, img] = data;
+  listaProductosCunero.push(
+    new Productos(
+      id,
+      nombre,
+      categoria,
+      subCategoria,
+      parseFloat(precio),
+      stock,
+      img
+    )
+  );
+}
+
+const productosLetras = [
+  [1, "Letra", "Palabra", "Letra", 1500, 0, "imagen1.jpg"], //Los nombres son a pedido no hay Stock
+  [2, "Estrella", "Palabra", "Universo", 500, 10, "imagen1.jpg"],
+  [3, "Esfera", "Palabra", "Figura geométrica", 500, 10, "imagen1.jpg"],
+  [4, "Borla", "Palabra", "General", 500, 10, "imagen1.jpg"],
+];
+
+for (const data of productosLetras) {
+  const [id, nombre, categoria, subCategoria, precio, stock, img] = data;
+  listaProductosLetras.push(
+    new Productos(
+      id,
+      nombre,
+      categoria,
+      subCategoria,
+      parseFloat(precio),
+      stock,
+      img
+    )
+  );
+}
+
+const productosPeluches = [
+  [1, "Perro", "Peluche", "Animal", 10000, 10, "imagen1.jpg"],
+  [2, "Zorro", "Peluche", "Animal", 10000, 10, "imagen1.jpg"],
+  [3, "Jirafa", "Peluche", "Animal", 10000, 10, "imagen1.jpg"],
+  [4, "Elefante", "Peluche", "Animal", 10000, 10, "imagen1.jpg"],
+  [5, "T-Rex", "Peluche", "Dinosaurio", 10000, 10, "imagen1.jpg"],
+  [6, "Brontosaurio", "Peluche", "Dinosaurio", 10000, 10, "imagen1.jpg"],
+  [7, "Triceratop", "Peluche", "Dinosaurio", 10000, 10, "imagen1.jpg"],
+];
+
+for (const data of productosPeluches) {
+  const [id, nombre, categoria, subCategoria, precio, stock, img] = data;
+  listaProductosPeluche.push(
+    new Productos(
+      id,
+      nombre,
+      categoria,
+      subCategoria,
+      parseFloat(precio),
+      stock,
+      img
+    )
+  );
+}
+
+//-----------------------------------------------------
+//Funciones
+//-----------------------------------------------------
+
+// Calcular el impuesto del 21% del total
 function calcularIVA(total) {
-  // Calcular el impuesto del 21% del total
   let iva = total * 0.21;
   // Redondear el resultado del cálculo del IVA
   iva = Math.round(iva);
   return iva;
 }
 
+//Proceso de pago del carrito
 function pagarCarrito() {
   if (carrito.length > 0) {
     let subtotal = carrito.reduce(
       (acc, item) => acc + item.precioUnitario * item.cantidad,
       0
     );
-
+    let fecha = new Date();
     let iva = calcularIVA(subtotal);
     let total = subtotal + iva;
 
     let confirmation = confirm(
-      "Resumen del carrito de compras:\n\n" +
+      "Resumen del carrito de compras al " +
+        fecha.toLocaleDateString() +
+        ":\n\n" +
         carrito
           .map(
             (item, index) =>
@@ -100,6 +200,7 @@ function pagarCarrito() {
   }
 }
 
+//Buscar Productos
 function buscarProducto() {
   let textoBusqueda = prompt("Ingrese el nombre del producto a buscar:");
 
@@ -145,6 +246,7 @@ function buscarProducto() {
   }
 }
 
+//Confirmar Salida sin FInalizar la compra
 function confirmarSalirSinFinalizarCompra() {
   if (carrito.length > 0) {
     let confirmacionSalir = confirm(
@@ -161,106 +263,8 @@ function confirmarSalirSinFinalizarCompra() {
   }
 }
 
-const productosSonajeros = [
-  [1, "Perro", "Sonajero", "Animal", 10000, 10, "imagen1.jpg"],
-  [2, "Zorro", "Sonajero", "Animal", 10000, 10, "imagen1.jpg"],
-  [3, "Gallo", "Sonajero", "Animal", 7000, 10, "imagen1.jpg"],
-  [4, "Vaca", "Sonajero", "Animal", 10000, 10, "imagen1.jpg"],
-];
-
-// Crear productos usando un bucle
-for (const data of productosSonajeros) {
-  const [id, nombre, categoria, subCategoria, precio, stock, img] = data;
-  listaProductosSonajero.push(
-    new Productos(
-      id,
-      nombre,
-      categoria,
-      subCategoria,
-      parseFloat(precio),
-      stock,
-      img
-    )
-  );
-}
-console.log(listaProductosSonajero);
-
-const productosCunero = [
-  [1, "Estrellas y planetas", "Cunero", "Universo", 35000, 10, "imagen1.jpg"],
-  [2, "Estrellas", "Cunero", "Universo", 35000, 10, "imagen1.jpg"],
-  [3, "Animales de la Granja", "Cunero", "Animal", 35000, 10, "imagen1.jpg"],
-  [4, "Animales del mar", "Cunero", "Animal", 35000, 10, "imagen1.jpg"],
-  [5, "Dinosaurios", "Cunero", "Dinosaurio", 35000, 10, "imagen1.jpg"],
-];
-
-// Crear productos usando un bucle
-for (const data of productosCunero) {
-  const [id, nombre, categoria, subCategoria, precio, stock, img] = data;
-  listaProductosCunero.push(
-    new Productos(
-      id,
-      nombre,
-      categoria,
-      subCategoria,
-      parseFloat(precio),
-      stock,
-      img
-    )
-  );
-}
-console.log(listaProductosCunero);
-
-const productosLetras = [
-  [1, "Letra", "Palabra", "Letra", 1500, 0, "imagen1.jpg"], //Los nombres son a pedido no hay Stock
-  [2, "Estrella", "Palabra", "Universo", 500, 10, "imagen1.jpg"],
-  [3, "Esfera", "Palabra", "Figura geométrica", 500, 10, "imagen1.jpg"],
-  [4, "Borla", "Palabra", "General", 500, 10, "imagen1.jpg"],
-];
-
-// Crear productos usando un bucle
-for (const data of productosLetras) {
-  const [id, nombre, categoria, subCategoria, precio, stock, img] = data;
-  listaProductosLetras.push(
-    new Productos(
-      id,
-      nombre,
-      categoria,
-      subCategoria,
-      parseFloat(precio),
-      stock,
-      img
-    )
-  );
-}
-console.log(listaProductosLetras);
-
-const productosPeluches = [
-  [1, "Perro", "Peluche", "Animal", 10000, 10, "imagen1.jpg"],
-  [2, "Zorro", "Peluche", "Animal", 10000, 10, "imagen1.jpg"],
-  [3, "Jirafa", "Peluche", "Animal", 10000, 10, "imagen1.jpg"],
-  [4, "Elefante", "Peluche", "Animal", 10000, 10, "imagen1.jpg"],
-  [5, "T-Rex", "Peluche", "Dinosaurio", 10000, 10, "imagen1.jpg"],
-  [6, "Brontosaurio", "Peluche", "Dinosaurio", 10000, 10, "imagen1.jpg"],
-  [7, "Triceratop", "Peluche", "Dinosaurio", 10000, 10, "imagen1.jpg"],
-];
-
-// Crear productos usando un bucle
-for (const data of productosPeluches) {
-  const [id, nombre, categoria, subCategoria, precio, stock, img] = data;
-  listaProductosPeluche.push(
-    new Productos(
-      id,
-      nombre,
-      categoria,
-      subCategoria,
-      parseFloat(precio),
-      stock,
-      img
-    )
-  );
-}
-console.log(listaProductosPeluche);
-
+// Compras
+// a.- Compra de sonajeros
 function compraSonajero() {
   let continuar;
 
@@ -288,11 +292,28 @@ function compraSonajero() {
     );
 
     if (productoEncontrado) {
-      let cantidad = parseInt(
-        prompt(
-          `¿Cuántos Sonajeros de ${productoEncontrado.nombre} desea comprar?`
-        )
-      );
+      let cantidad;
+      while (true) {
+        cantidad = prompt(
+          `¿Cuántos ${productoEncontrado.nombre} desea comprar?`
+        );
+        if (cantidad === null) {
+          // Si el usuario cancela, volver al menú de sonajeros
+          alert("Se canceló la operación.");
+          return compraSonajero();
+        } else {
+          cantidad = parseInt(cantidad);
+          if (!isNaN(cantidad) && cantidad > 0) {
+            if (cantidad <= productoEncontrado.stock) {
+              break;
+            } else {
+              alert("No hay suficiente stock disponible para esa cantidad.");
+            }
+          } else {
+            alert("Por favor, ingrese una cantidad válida mayor que cero.");
+          }
+        }
+      }
 
       // Verificar si el usuario canceló la entrada
       if (cantidad === null) {
@@ -369,6 +390,7 @@ function compraSonajero() {
   }
 }
 
+// b.- Compra de cuneros
 function compraCunero() {
   let continuar;
 
@@ -384,17 +406,40 @@ function compraCunero() {
       )
     );
 
+    // Verificar si el usuario cancela
+    if (idProducto === null) {
+      alert("Se canceló la operación.");
+      return; // Salir de la función
+    }
+
     // Buscar el producto en listaProductosCunero por ID
     let productoEncontrado = listaProductosCunero.find(
       (producto) => producto.id === idProducto
     );
 
     if (productoEncontrado) {
-      let cantidad = parseInt(
-        prompt(
+      let cantidad;
+      while (true) {
+        cantidad = prompt(
           `¿Cuántos Cuneros de ${productoEncontrado.nombre} desea comprar?`
-        )
-      );
+        );
+        if (cantidad === null) {
+          // Si el usuario cancela, volver al menú de cuneros
+          alert("Se canceló la operación.");
+          return compraCunero();
+        } else {
+          cantidad = parseInt(cantidad);
+          if (!isNaN(cantidad) && cantidad > 0) {
+            if (cantidad <= productoEncontrado.stock) {
+              break;
+            } else {
+              alert("No hay suficiente stock disponible para esa cantidad.");
+            }
+          } else {
+            alert("Por favor, ingrese una cantidad válida mayor que cero.");
+          }
+        }
+      }
 
       // Verificar si hay suficiente stock
       if (cantidad <= productoEncontrado.stock) {
@@ -411,20 +456,35 @@ function compraCunero() {
         });
 
         alert(
-          `Se ha agregado la cantidad de ${cantidad} CUneros/s de ${productoEncontrado.nombre} al carrito.`
+          `Se ha agregado la cantidad de ${cantidad} Cunero/s de ${productoEncontrado.nombre} al carrito.`
         );
       } else {
         alert(
-          `No hay suficiente stock disponible para Cuneros de${productoEncontrado.nombre}.`
+          `No hay suficiente stock disponible para Cuneros de ${productoEncontrado.nombre}.`
         );
+        continue; // Volver al inicio del bucle
       }
     } else {
       alert("El ID ingresado no corresponde a ningún Cunero.");
     }
 
     continuar = prompt(
-      "¿Desea agregar más Productos cuneros al carrito? (s/n)"
-    ).toLowerCase();
+      "¿Desea agregar más Productos Cuneros al carrito? (s/n)"
+    );
+
+    // Verificar si el usuario cancela
+    if (continuar === null) {
+      alert("Se canceló la operación.");
+      return; // Salir de la función
+    }
+
+    // Convertir a minúsculas y verificar la respuesta solo si no es null
+    continuar = continuar.toLowerCase();
+
+    // Verificar si la respuesta es válida
+    if (continuar !== "s" && continuar !== "n") {
+      alert("Por favor, ingrese una respuesta válida (s/n).");
+    }
   } while (continuar === "s");
 
   // Mostrar el resumen del carrito
@@ -450,6 +510,7 @@ function compraCunero() {
   }
 }
 
+// c.- Compra de letras por palabra
 function compraLetrasPorPalabra() {
   let palabra = prompt("Ingrese el nombre que desea adquirir:");
   let totalLetrasAgregadas = palabra.length; // Total de letras agregadas al carrito
@@ -488,6 +549,7 @@ function compraLetrasPorPalabra() {
   }
 }
 
+//Mostrar productos disponibles para decoraciones de letras
 function mostrarProductosDisponibles() {
   let productosDisponibles = listaProductosLetras.filter(
     (producto) => producto.id >= 2 && producto.id <= 4
@@ -510,6 +572,7 @@ function mostrarProductosDisponibles() {
   agregarProductosInicioYFin(seleccionInicio, seleccionFinal);
 }
 
+// Agregar productos al inicio y al final de la palabra
 function agregarProductosInicioYFin(idInicio, idFinal) {
   let productosAgregados = 0;
 
@@ -568,34 +631,7 @@ function agregarProductosInicioYFin(idInicio, idFinal) {
   }
 }
 
-function mostrarResumenCarrito() {
-  // Mostrar el resumen del carrito
-  if (carrito.length > 0) {
-    let total = carrito.reduce(
-      (acc, item) => acc + item.precioUnitario * item.cantidad,
-      0
-    );
-
-    let carritoParcial = carrito
-      .map(
-        (item) =>
-          `Producto ${item.categoria} ${item.nombre} - Cantidad: ${
-            item.cantidad
-          } - Precio Unitario: $${item.precioUnitario * item.cantidad}`
-      )
-      .join("\n");
-
-    alert(
-      "Resumen Parcial del carrito de compras:\n\n" +
-        carritoParcial +
-        "\n\nTotal a pagar: $" +
-        total.toFixed(2)
-    );
-  } else {
-    alert("El carrito está vacío.");
-  }
-}
-
+//d.- Compra de peluches
 function compraPeluches() {
   let continuar;
 
@@ -611,17 +647,40 @@ function compraPeluches() {
       )
     );
 
+    // Verificar si el usuario cancela
+    if (idProducto === null) {
+      alert("Se canceló la operación.");
+      return; // Salir de la función
+    }
+
     // Buscar el producto en listaProductosPeluche por ID
     let productoEncontrado = listaProductosPeluche.find(
       (producto) => producto.id === idProducto
     );
 
     if (productoEncontrado) {
-      let cantidad = parseInt(
-        prompt(
+      let cantidad;
+      while (true) {
+        cantidad = prompt(
           `¿Cuántos Peluches de ${productoEncontrado.nombre} desea comprar?`
-        )
-      );
+        );
+        if (cantidad === null) {
+          // Si el usuario cancela, volver al menú de peluches
+          alert("Se canceló la operación.");
+          return compraPeluches();
+        } else {
+          cantidad = parseInt(cantidad);
+          if (!isNaN(cantidad) && cantidad > 0) {
+            if (cantidad <= productoEncontrado.stock) {
+              break;
+            } else {
+              alert("No hay suficiente stock disponible para esa cantidad.");
+            }
+          } else {
+            alert("Por favor, ingrese una cantidad válida mayor que cero.");
+          }
+        }
+      }
 
       // Verificar si hay suficiente stock
       if (cantidad <= productoEncontrado.stock) {
@@ -644,6 +703,7 @@ function compraPeluches() {
         alert(
           `No hay suficiente stock disponible para Peluches de ${productoEncontrado.nombre}.`
         );
+        continue; // Volver al inicio del bucle
       }
     } else {
       alert("El ID ingresado no corresponde a ningún peluche.");
@@ -651,7 +711,21 @@ function compraPeluches() {
 
     continuar = prompt(
       "¿Desea agregar más Productos Peluches al carrito? (s/n)"
-    ).toLowerCase();
+    );
+
+    // Verificar si el usuario cancela
+    if (continuar === null) {
+      alert("Se canceló la operación.");
+      return; // Salir de la función
+    }
+
+    // Convertir a minúsculas y verificar la respuesta solo si no es null
+    continuar = continuar.toLowerCase();
+
+    // Verificar si la respuesta es válida
+    if (continuar !== "s" && continuar !== "n") {
+      alert("Por favor, ingrese una respuesta válida (s/n).");
+    }
   } while (continuar === "s");
 
   // Mostrar el resumen del carrito
@@ -666,9 +740,37 @@ function compraPeluches() {
         carrito
           .map(
             (item) =>
-              `Producto ${item.categoria} ${item.nombre} - Cantidad: ${item.cantidad} - Precio Unitario: $${item.precioUnitario}`
+              `Producto ${item.categoria} de ${item.nombre} - Cantidad: ${item.cantidad} - Precio Unitario: $${item.precioUnitario}`
           )
           .join("\n") +
+        "\n\nTotal a pagar: $" +
+        total.toFixed(2)
+    );
+  } else {
+    alert("El carrito está vacío.");
+  }
+}
+
+// Mostrar el resumen del carrito
+function mostrarResumenCarrito() {
+  if (carrito.length > 0) {
+    let total = carrito.reduce(
+      (acc, item) => acc + item.precioUnitario * item.cantidad,
+      0
+    );
+
+    let carritoParcial = carrito
+      .map(
+        (item) =>
+          `Producto ${item.categoria} ${item.nombre} - Cantidad: ${
+            item.cantidad
+          } - Precio Unitario: $${item.precioUnitario * item.cantidad}`
+      )
+      .join("\n");
+
+    alert(
+      "Resumen Parcial del carrito de compras:\n\n" +
+        carritoParcial +
         "\n\nTotal a pagar: $" +
         total.toFixed(2)
     );
