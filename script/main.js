@@ -1,282 +1,821 @@
-let password = 1;
+//Variables principales
+let password = 1982;
 let loginAttempts = 4; // Número máximo de intentos
 let loggedIn = false;
-class Cotizacion {
-  constructor(cotizacionCompra, cotizacionVenta) {
-    this.cotizacionCompra = cotizacionCompra;
-    this.cotizacionVenta = cotizacionVenta;
+let carrito = []; // Definir el carrito
+const listaProductosSonajero = [];
+const listaProductosCunero = [];
+const listaProductosLetras = [];
+const listaProductosPeluche = [];
+
+//Clase Producto
+class Productos {
+  constructor(id, nombre, categoria, subCategoria, precio, stock, img) {
+    this.id = id;
+    this.nombre = nombre;
+    this.categoria = categoria;
+    this.subCategoria = subCategoria;
+    this.precio = precio;
+    this.stock = stock;
+    this.img = img;
   }
 }
-// Array para almacenar las cotizaciones del dólar
-let cotizacionesDolar = [];
+//Declaración, seteo y Carga de Arrays
+const productosSonajeros = [
+  [1, "Perro 🐶", "Sonajero", "Animal", 10000, 10, "imagen1.jpg"],
+  [2, "Zorro 🦊", "Sonajero", "Animal", 10000, 10, "imagen1.jpg"],
+  [3, "Gallo 🐔", "Sonajero", "Animal", 7000, 10, "imagen1.jpg"],
+  [4, "Vaca 🐮", "Sonajero", "Animal", 10000, 10, "imagen1.jpg"],
+];
 
-// Cotización default
-const cotizacionDolarHoy = new Cotizacion(848, 808);
-
-// Agrego cotización default al array
-cotizacionesDolar.push(cotizacionDolarHoy);
-
-const cotizacionEuroHoy = new Cotizacion(941, 881);
-
-function validarEntradasPrestamo(montoPrestamo, plazoMeses) {
-  if (
-    isNaN(montoPrestamo) ||
-    isNaN(plazoMeses) ||
-    montoPrestamo <= 0 ||
-    plazoMeses <= 0
-  ) {
-    alert("❗Por favor, ingrese valores válidos y positivos.❗");
-    return false;
-  }
-  return true;
-}
-
-function calcularTasaInteresAnual(plazoMeses) {
-  // Tasa tomadas de ejemplo del BBVA
-  if (plazoMeses >= 1 && plazoMeses <= 6) {
-    return 286.13; // TEA para 6 meses
-  } else if (plazoMeses >= 7 && plazoMeses <= 12) {
-    return 293.09; // TEA para 12 meses
-  } else if (plazoMeses >= 13 && plazoMeses <= 18) {
-    return 296.61; // TEA para 18 meses
-  } else if (plazoMeses >= 19 && plazoMeses <= 24) {
-    return 296.61; // TEA para 24 meses
-  } else {
-    return 298.8; // TEA para más de 24 meses
-  }
-}
-
-function mostrarPorcentajesInteres() {
-  alert(
-    "Porcentajes de interés según el plazo:\n" +
-      "1-6 meses: 286.13% (TEA)\n" +
-      "7-12 meses: 293.09% (TEA)\n" +
-      "13-18 meses: 296.61% (TEA)\n" +
-      "19-24 meses: 296.61% (TEA)\n" +
-      "Más de 25 meses: 298.80% (TEA)"
+for (const data of productosSonajeros) {
+  const [id, nombre, categoria, subCategoria, precio, stock, img] = data;
+  listaProductosSonajero.push(
+    new Productos(
+      id,
+      nombre,
+      categoria,
+      subCategoria,
+      parseFloat(precio),
+      stock,
+      img
+    )
   );
 }
 
-function simuladorPrestamo() {
-  let montoPrestamo, plazoMeses;
+const productosCunero = [
+  [
+    1,
+    "Estrellas y planetas ⭐🪐🌎",
+    "Cunero",
+    "Universo",
+    35000,
+    10,
+    "imagen1.jpg",
+  ],
+  [2, "Estrellas ✨", "Cunero", "Universo", 35000, 10, "imagen1.jpg"],
+  [
+    3,
+    "Animales de la Granja 🐮🐷🐴🐔",
+    "Cunero",
+    "Animal",
+    35000,
+    10,
+    "imagen1.jpg",
+  ],
+  [
+    4,
+    "Animales del mar 🦈🐋🐬🐠",
+    "Cunero",
+    "Animal",
+    35000,
+    10,
+    "imagen1.jpg",
+  ],
+  [5, "Dinosaurios 🦕🦖", "Cunero", "Dinosaurio", 35000, 10, "imagen1.jpg"],
+];
 
-  mostrarPorcentajesInteres(); // Mostrar porcentajes antes de solicitar datos
+for (const data of productosCunero) {
+  const [id, nombre, categoria, subCategoria, precio, stock, img] = data;
+  listaProductosCunero.push(
+    new Productos(
+      id,
+      nombre,
+      categoria,
+      subCategoria,
+      parseFloat(precio),
+      stock,
+      img
+    )
+  );
+}
+
+const productosLetras = [
+  [1, "Letra 🔠🔠", "Palabra", "Letra", 1500, 0, "imagen1.jpg"], //Los nombres son a pedido no hay Stock
+  [2, "Estrella 🌟", "Palabra", "Universo", 500, 10, "imagen1.jpg"],
+  [3, "Esfera 🏐", "Palabra", "Figura geométrica", 500, 10, "imagen1.jpg"],
+  [4, "Borla 🧶", "Palabra", "General", 500, 10, "imagen1.jpg"],
+];
+
+for (const data of productosLetras) {
+  const [id, nombre, categoria, subCategoria, precio, stock, img] = data;
+  listaProductosLetras.push(
+    new Productos(
+      id,
+      nombre,
+      categoria,
+      subCategoria,
+      parseFloat(precio),
+      stock,
+      img
+    )
+  );
+}
+
+const productosPeluches = [
+  [1, "Perro 🐕", "Peluche", "Animal", 10000, 10, "imagen1.jpg"],
+  [2, "Zorro 🦊", "Peluche", "Animal", 10000, 10, "imagen1.jpg"],
+  [3, "Jirafa 🦒", "Peluche", "Animal", 10000, 10, "imagen1.jpg"],
+  [4, "Elefante 🐘", "Peluche", "Animal", 10000, 10, "imagen1.jpg"],
+  [5, "T-Rex 🦖", "Peluche", "Dinosaurio", 10000, 10, "imagen1.jpg"],
+  [6, "Brontosaurio 🦕", "Peluche", "Dinosaurio", 10000, 10, "imagen1.jpg"],
+  [7, "Triceratop", "Peluche", "Dinosaurio", 10000, 10, "imagen1.jpg"],
+];
+
+for (const data of productosPeluches) {
+  const [id, nombre, categoria, subCategoria, precio, stock, img] = data;
+  listaProductosPeluche.push(
+    new Productos(
+      id,
+      nombre,
+      categoria,
+      subCategoria,
+      parseFloat(precio),
+      stock,
+      img
+    )
+  );
+}
+
+//-----------------------------------------------------
+//Funciones
+//-----------------------------------------------------
+
+// Calcular el impuesto del 21% del total
+function calcularIVA(total) {
+  let iva = total * 0.21;
+  // Redondear el resultado del cálculo del IVA
+  iva = Math.round(iva);
+  return iva;
+}
+
+//Proceso de pago del carrito
+function pagarCarrito() {
+  if (carrito.length > 0) {
+    let subtotal = carrito.reduce(
+      (acc, item) => acc + item.precioUnitario * item.cantidad,
+      0
+    );
+    let fecha = new Date();
+    let iva = calcularIVA(subtotal);
+    let total = subtotal + iva;
+
+    let confirmation = confirm(
+      "Resumen del carrito de compras al " +
+        fecha.toLocaleDateString() +
+        ":\n\n" +
+        carrito
+          .map(
+            (item, index) =>
+              `${index + 1}. Producto: ${item.nombre} - Cantidad: ${
+                item.cantidad
+              } - Precio Unitario: $${item.precioUnitario}`
+          )
+          .join("\n") +
+        "\n\nSubtotal: $" +
+        subtotal.toFixed(2) +
+        "\nIVA (21%): $" +
+        iva.toFixed(2) +
+        "\nTotal a pagar (incluido IVA): $" +
+        total.toFixed(2) +
+        "\n\n¿Desea confirmar la compra?"
+    );
+
+    if (confirmation) {
+      // Limpiar el carrito después de pagar
+      carrito = [];
+      alert("¡Gracias por su compra! El carrito ha sido vaciado.");
+    } else {
+      let eliminarProducto = confirm(
+        "¿Desea eliminar algún producto del carrito?"
+      );
+
+      if (eliminarProducto) {
+        let idProducto = parseInt(
+          prompt(
+            "Ingrese el número del producto que desea eliminar:\n\n" +
+              carrito
+                .map(
+                  (item, index) =>
+                    `${index + 1}. Producto: ${item.nombre} - Cantidad: ${
+                      item.cantidad
+                    } - Precio Unitario: $${item.precioUnitario}`
+                )
+                .join("\n")
+          )
+        );
+
+        if (
+          !isNaN(idProducto) &&
+          idProducto >= 1 &&
+          idProducto <= carrito.length
+        ) {
+          // Obtener el índice del producto en base al número ingresado
+          let index = idProducto - 1;
+          let eliminado = carrito.splice(index, 1)[0];
+          alert(`Se ha eliminado el producto ${eliminado.nombre} del carrito.`);
+        } else {
+          alert("🚫Número de producto inválido.🚫");
+        }
+      }
+    }
+  } else {
+    alert("El carrito está vacío 📭. No hay nada que pagar 🤷🏻‍♂️.");
+  }
+}
+
+//Buscar Productos
+function buscarProducto() {
+  let textoBusqueda = prompt(
+    "🔎🔎Ingrese el nombre del producto a buscar🔎🔎:"
+  );
+
+  let productosEncontrados = [];
+
+  // Buscar en la lista de Sonajeros
+  productosEncontrados = productosEncontrados.concat(
+    listaProductosSonajero.filter((producto) =>
+      producto.nombre.toLowerCase().includes(textoBusqueda.toLowerCase())
+    )
+  );
+
+  // Buscar en la lista de Cuneros
+  productosEncontrados = productosEncontrados.concat(
+    listaProductosCunero.filter((producto) =>
+      producto.nombre.toLowerCase().includes(textoBusqueda.toLowerCase())
+    )
+  );
+
+  // Buscar en la lista de Letras
+  productosEncontrados = productosEncontrados.concat(
+    listaProductosLetras.filter((producto) =>
+      producto.nombre.toLowerCase().includes(textoBusqueda.toLowerCase())
+    )
+  );
+
+  // Buscar en la lista de Peluches
+  productosEncontrados = productosEncontrados.concat(
+    listaProductosPeluche.filter((producto) =>
+      producto.nombre.toLowerCase().includes(textoBusqueda.toLowerCase())
+    )
+  );
+
+  if (productosEncontrados.length > 0) {
+    // Mostrar detalles de los productos encontrados
+    let mensaje = "Productos encontrados:\n\n";
+    productosEncontrados.forEach((producto) => {
+      mensaje += `Nombre: ${producto.nombre}\nCategoría: ${producto.categoria}\nPrecio: $${producto.precio}\nStock: ${producto.stock}\n\n`;
+    });
+    alert(mensaje);
+  } else {
+    alert("No se encontraron productos que coincidan con la búsqueda.");
+  }
+}
+
+//Confirmar Salida sin FInalizar la compra
+function confirmarSalirSinFinalizarCompra() {
+  if (carrito.length > 0) {
+    let confirmacionSalir = confirm(
+      "Aún tienes productos en el carrito. ¿Estás seguro de salir sin finalizar la compra?"
+    );
+    if (confirmacionSalir) {
+      alert("Gracias por visitarnos.!!!");
+      return true;
+    } else {
+      return false;
+    }
+  } else {
+    return true;
+  }
+}
+
+// Compras
+// a.- Compra de sonajeros
+function compraSonajero() {
+  let continuar;
 
   do {
-    montoPrestamo = parseFloat(prompt("💲Ingrese el monto del préstamo:"));
-    plazoMeses = parseInt(prompt("🗓️Ingrese el plazo del préstamo en meses:"));
-  } while (!validarEntradasPrestamo(montoPrestamo, plazoMeses));
-
-  // Calcular la tasa de interés anual según los rangos establecidos
-  let tasaInteresAnual = calcularTasaInteresAnual(plazoMeses);
-
-  // Calcular la cuota mensual
-  let tasaInteresMensual = tasaInteresAnual / 100 / 12;
-  let cuotas = "";
-
-  for (let i = 1; i <= plazoMeses; i++) {
-    // Fórmula de amortización de préstamos con interés compuesto
-    let cuotaMensual =
-      (montoPrestamo * tasaInteresMensual) /
-      (1 - Math.pow(1 + tasaInteresMensual, -plazoMeses));
-
-    cuotas += `Mes: ${i}, Cuota Mensual ($): ${cuotaMensual.toFixed(2)}\n`;
-  }
-
-  alert("Detalles del préstamo por mes:\n" + cuotas);
-}
-
-function cotizarDolar(pesos, compra = true) {
-  let ultimaCotizacion = cotizacionesDolar[cotizacionesDolar.length - 1]; // Última cotización almacenada
-  return compra
-    ? pesos / ultimaCotizacion.cotizacionCompra
-    : pesos * ultimaCotizacion.cotizacionVenta;
-}
-
-function cotizarEuro(pesos, compra = true) {
-  return compra
-    ? pesos / cotizacionEuroHoy.cotizacionCompra
-    : pesos * cotizacionEuroHoy.cotizacionVenta;
-}
-
-function validarCantidad(cantidad) {
-  if (isNaN(cantidad) || cantidad <= 9) {
-    alert("❗Por favor, ingrese valores válidos y positivos mayores a 9.❗");
-    return false;
-  }
-  return true;
-}
-
-function simuladorDolares() {
-  function mostrarOpciones() {
-    let cotizacionActual = cotizacionesDolar[cotizacionesDolar.length - 1];
-    return prompt(
-      "Seleccione la operación que desea realizar:\n" +
-        "a.- Compra de dólares 📥💵\n" +
-        "b.- Venta de dólares 📤💵\n" +
-        "c.- Carga manualmente su cotización y simule\n" +
-        "r.- Resetear cotizaciones a los valores del día\n\n" +
-        "Cotizaciones actuales :\n" +
-        "Compra: $" +
-        cotizacionActual.cotizacionCompra +
-        "\nVenta: $" +
-        cotizacionActual.cotizacionVenta
-    );
-  }
-
-  if (cotizacionesDolar.length === 0) {
-    // Si no hay cotizaciones almacenadas, mostrar un mensaje y salir de la función
-    alert(
-      "No hay cotizaciones disponibles. Por favor, cargue una cotización antes de continuar."
-    );
-    return;
-  }
-
-  // Crear la cadena de texto para las cotizaciones cargadas manualmente
-  let cotizacionesManuales = "Cotizaciones cargadas manualmente:\n";
-  for (let cotizacion of cotizacionesDolar.slice(1)) {
-    cotizacionesManuales +=
-      "Compra: $" +
-      cotizacion.cotizacionCompra +
-      "\n" +
-      "Venta: $" +
-      cotizacion.cotizacionVenta +
-      "\n";
-  }
-
-  let opcion = mostrarOpciones();
-
-  if (opcion === "a") {
-    // Opción para comprar dólares
-    do {
-      cantidadCompraDolar = parseFloat(
-        prompt("💲Ingrese en pesos la cantidad de dólares a comprar:")
-      );
-    } while (
-      !validarCantidad(cantidadCompraDolar) ||
-      isNaN(parseFloat(cantidadCompraDolar))
+    let opcionesDisponibles = listaProductosSonajero
+      .map((producto) => `${producto.id}. ${producto.nombre}`)
+      .join("\n");
+    let idProducto = parseInt(
+      prompt(
+        "Ingrese el ID del Sonajero que desea comprar:\n" +
+          opcionesDisponibles +
+          "\n"
+      )
     );
 
-    alert(
-      "Con $ " +
-        cantidadCompraDolar +
-        " pesos puede comprar: U$D" +
-        cotizarDolar(parseFloat(cantidadCompraDolar)).toFixed(2) +
-        " (dólares)"
-    );
-  } else if (opcion === "b") {
-    // Opción para vender dólares
-    do {
-      cantidadVtaDolar = prompt("Ingrese la cantidad de dólares a vender:");
-    } while (
-      !validarCantidad(cantidadVtaDolar) ||
-      isNaN(parseFloat(cantidadVtaDolar))
-    );
-
-    alert(
-      "Vendiendo U$D " +
-        cantidadVtaDolar +
-        " dólares puede obtener: $" +
-        cotizarDolar(cantidadVtaDolar, false).toFixed(2) +
-        " (pesos)"
-    );
-  } else if (opcion === "c") {
-    // Opción para cargar manualmente la cotización del dólar
-    let nuevaCotizacionCompra = parseFloat(
-      prompt("Ingrese la nueva cotización de compra del dólar:")
-    );
-    let nuevaCotizacionVenta = parseFloat(
-      prompt("Ingrese la nueva cotización de venta del dólar:")
-    );
-
-    if (!isNaN(nuevaCotizacionCompra) && !isNaN(nuevaCotizacionVenta)) {
-      let nuevaCotizacion = new Cotizacion(
-        nuevaCotizacionCompra,
-        nuevaCotizacionVenta
-      );
-      cotizacionesDolar.push(nuevaCotizacion); // Agregar nueva cotización al array
-      alert("Cotizaciones actualizadas correctamente.");
-      // Después de actualizar las cotizaciones, llamar nuevamente a simuladorDolares
-      simuladorDolares();
-    } else {
-      alert(
-        "Error al ingresar las cotizaciones. Por favor, ingrese valores numéricos válidos."
-      );
+    // Verificar si el usuario canceló la entrada
+    if (idProducto === null) {
+      alert("Se canceló la operación.");
+      return; // Salir de la función
     }
-  } else if (opcion === "r") {
-    // Opción para resetear las cotizaciones a los valores por defecto
-    cotizacionesDolar = []; // Vaciar el array de cotizaciones
-    cotizacionesDolar.push(cotizacionDolarHoy); // Agregar la cotización por defecto
-    alert("Cotizaciones reseteadas a los valores por defecto.");
-    // Después de resetear las cotizaciones, llamar nuevamente a simuladorDolares
-    simuladorDolares();
+
+    // Buscar el producto en listaProductosSonajero
+    let productoEncontrado = listaProductosSonajero.find(
+      (producto) => producto.id === idProducto
+    );
+
+    if (productoEncontrado) {
+      let cantidad;
+      while (true) {
+        cantidad = prompt(
+          `¿Cuántos ${productoEncontrado.nombre} desea comprar?`
+        );
+        if (cantidad === null) {
+          // Si el usuario cancela, volver al menú de sonajeros
+          alert("Se canceló la operación.");
+          return compraSonajero();
+        } else {
+          cantidad = parseInt(cantidad);
+          if (!isNaN(cantidad) && cantidad > 0) {
+            if (cantidad <= productoEncontrado.stock) {
+              break;
+            } else {
+              alert("No hay suficiente stock disponible para esa cantidad.");
+            }
+          } else {
+            alert("Por favor, ingrese una cantidad válida mayor que cero.");
+          }
+        }
+      }
+
+      // Verificar si el usuario canceló la entrada
+      if (cantidad === null) {
+        alert("Se canceló la operación.");
+        return; // Salir de la función
+      }
+
+      // Verificar si hay suficiente stock
+      if (cantidad <= productoEncontrado.stock) {
+        // Restar la cantidad comprada del stock
+        productoEncontrado.stock -= cantidad;
+
+        // Agregar el producto al carrito global
+        carrito.push({
+          id: productoEncontrado.id,
+          nombre: productoEncontrado.nombre,
+          categoria: productoEncontrado.categoria,
+          precioUnitario: productoEncontrado.precio,
+          cantidad: cantidad,
+        });
+
+        alert(
+          `Se ha agregado la cantidad de ${cantidad} Sonajero/s de ${productoEncontrado.nombre} al carrito.`
+        );
+      } else {
+        alert(
+          `No hay suficiente stock disponible para Sonajeros de ${productoEncontrado.nombre}.`
+        );
+        continue; // Volver al inicio del bucle
+      }
+    } else {
+      alert("El ID ingresado no corresponde a ningún sonajero.");
+    }
+
+    continuar = prompt(
+      "¿Desea agregar más Productos Sonajeros al carrito? (s/n)"
+    );
+
+    // Verificar si el usuario canceló la entrada
+    if (continuar === null) {
+      alert("Se canceló la operación.");
+      return; // Salir de la función
+    }
+
+    // Convertir a minúsculas y verificar la respuesta solo si no es null
+    continuar = continuar.toLowerCase();
+
+    // Verificar si la respuesta es válida
+    if (continuar !== "s" && continuar !== "n") {
+      alert("Por favor, ingrese una respuesta válida (s/n).");
+    }
+  } while (continuar === "s");
+
+  // Mostrar el resumen del carrito
+  if (carrito.length > 0) {
+    let total = carrito.reduce(
+      (acc, item) => acc + item.precioUnitario * item.cantidad,
+      0
+    );
+
+    alert(
+      "🛒🛒 Resumen Parcial del carrito de compras:\n\n" +
+        carrito
+          .map(
+            (item) =>
+              `Producto ${item.categoria} de ${item.nombre} - Cantidad: ${item.cantidad} - Precio Unitario: $${item.precioUnitario}`
+          )
+          .join("\n") +
+        "\n\nTotal a pagar: $" +
+        total.toFixed(2)
+    );
   } else {
-    alert("🛑❌ Opción no válida ❌🛑");
+    alert("El carrito está vacío.");
   }
 }
 
-function simuladorEuros() {
-  let opcion = prompt(
-    "Seleccione la operación que desea realizar:\n" +
-      "a.- Compra de Euros 📥💶\n" +
-      "b.- Venta de Euros 📤💶\n\n" +
-      "Cotizaciones del día:\n" +
-      "Compra: $" +
-      cotizacionEuroHoy.cotizacionCompra +
-      "\nVenta: $" +
-      cotizacionEuroHoy.cotizacionVenta
+// b.- Compra de cuneros
+function compraCunero() {
+  let continuar;
+
+  do {
+    let opcionesDisponibles = listaProductosCunero
+      .map((producto) => `${producto.id}. ${producto.nombre}`)
+      .join("\n");
+    let idProducto = parseInt(
+      prompt(
+        "Ingrese el ID del cunero que desea comprar:\n" +
+          opcionesDisponibles +
+          "\n"
+      )
+    );
+
+    // Verificar si el usuario cancela
+    if (idProducto === null) {
+      alert("Se canceló la operación.");
+      return; // Salir de la función
+    }
+
+    // Buscar el producto en listaProductosCunero por ID
+    let productoEncontrado = listaProductosCunero.find(
+      (producto) => producto.id === idProducto
+    );
+
+    if (productoEncontrado) {
+      let cantidad;
+      while (true) {
+        cantidad = prompt(
+          `¿Cuántos Cuneros de ${productoEncontrado.nombre} desea comprar?`
+        );
+        if (cantidad === null) {
+          // Si el usuario cancela, volver al menú de cuneros
+          alert("Se canceló la operación.");
+          return compraCunero();
+        } else {
+          cantidad = parseInt(cantidad);
+          if (!isNaN(cantidad) && cantidad > 0) {
+            if (cantidad <= productoEncontrado.stock) {
+              break;
+            } else {
+              alert("No hay suficiente stock disponible para esa cantidad.");
+            }
+          } else {
+            alert("Por favor, ingrese una cantidad válida mayor que cero.");
+          }
+        }
+      }
+
+      // Verificar si hay suficiente stock
+      if (cantidad <= productoEncontrado.stock) {
+        // Restar la cantidad comprada del stock
+        productoEncontrado.stock -= cantidad;
+
+        // Agregar el producto al carrito global
+        carrito.push({
+          id: productoEncontrado.id,
+          nombre: productoEncontrado.nombre,
+          categoria: productoEncontrado.categoria,
+          precioUnitario: productoEncontrado.precio,
+          cantidad: cantidad,
+        });
+
+        alert(
+          `Se ha agregado la cantidad de ${cantidad} Cunero/s de ${productoEncontrado.nombre} al carrito.`
+        );
+      } else {
+        alert(
+          `No hay suficiente stock disponible para Cuneros de ${productoEncontrado.nombre}.`
+        );
+        continue; // Volver al inicio del bucle
+      }
+    } else {
+      alert("El ID ingresado no corresponde a ningún Cunero.");
+    }
+
+    continuar = prompt(
+      "¿Desea agregar más Productos Cuneros al carrito? (s/n)"
+    );
+
+    // Verificar si el usuario cancela
+    if (continuar === null) {
+      alert("Se canceló la operación.");
+      return; // Salir de la función
+    }
+
+    // Convertir a minúsculas y verificar la respuesta solo si no es null
+    continuar = continuar.toLowerCase();
+
+    // Verificar si la respuesta es válida
+    if (continuar !== "s" && continuar !== "n") {
+      alert("Por favor, ingrese una respuesta válida (s/n).");
+    }
+  } while (continuar === "s");
+
+  // Mostrar el resumen del carrito
+  if (carrito.length > 0) {
+    let total = carrito.reduce(
+      (acc, item) => acc + item.precioUnitario * item.cantidad,
+      0
+    );
+
+    alert(
+      "🛒🛒 Resumen Parcial del carrito de compras:\n\n" +
+        carrito
+          .map(
+            (item) =>
+              `Producto ${item.categoria} de ${item.nombre} - Cantidad: ${item.cantidad} - Precio Unitario: $${item.precioUnitario}`
+          )
+          .join("\n") +
+        "\n\nTotal a pagar: $" +
+        total.toFixed(2)
+    );
+  } else {
+    alert("El carrito está vacío.");
+  }
+}
+
+// c.- Compra de letras por palabra
+function compraLetrasPorPalabra() {
+  let palabra = prompt("Ingrese el nombre que desea adquirir:");
+  let totalLetrasAgregadas = palabra.length; // Total de letras agregadas al carrito
+
+  // Encontrar el producto con id: 1 en la lista de productos de letras
+  let productoEncontrado = listaProductosLetras.find(
+    (producto) => producto.id === 1
   );
 
-  if (opcion === "a") {
-    do {
-      cantidadCompraEuro = parseFloat(
-        prompt("💲Ingrese en pesos la cantidad de Euros a comprar:")
+  // Verificar si se encontró el producto
+  if (productoEncontrado) {
+    // Agregar el producto al carrito global
+    carrito.push({
+      id: productoEncontrado.id,
+      nombre: productoEncontrado.nombre,
+      categoria: productoEncontrado.categoria,
+      precioUnitario: productoEncontrado.precio,
+      cantidad: totalLetrasAgregadas, // Cantidad total de letras
+    });
+
+    // Mostrar mensaje de alerta
+    alert(
+      `Se ha agregado la cantidad de ${totalLetrasAgregadas} letras al carrito.`
+    );
+
+    // Preguntar si desea agregar productos al inicio y al final de la palabra
+    let opcion = prompt(
+      "¿Desea agregar decoraciones al inicio y al final de la palabra? (s/n)"
+    ).toLowerCase();
+
+    if (opcion === "s") {
+      mostrarProductosDisponibles();
+    }
+  } else {
+    alert(`No hay producto disponible para la letra.`);
+  }
+}
+
+//Mostrar productos disponibles para decoraciones de letras
+function mostrarProductosDisponibles() {
+  let productosDisponibles = listaProductosLetras.filter(
+    (producto) => producto.id >= 2 && producto.id <= 4
+  );
+
+  let mensaje =
+    "Decoraciones disponibles para agregar al inicio y al final de la palabra:\n\n";
+
+  for (const producto of productosDisponibles) {
+    mensaje += `${producto.id}. ${producto.nombre}\n`;
+  }
+
+  let seleccionInicio = parseInt(
+    prompt(mensaje + "\nElija el ID de la Decoración para agregar al inicio:")
+  );
+  let seleccionFinal = parseInt(
+    prompt(mensaje + "\nElija el ID de la Decoración para agregar al final:")
+  );
+
+  agregarProductosInicioYFin(seleccionInicio, seleccionFinal);
+}
+
+// Agregar productos al inicio y al final de la palabra
+function agregarProductosInicioYFin(idInicio, idFinal) {
+  let productosAgregados = 0;
+
+  // Buscar los productos seleccionados en la lista de productos de letras
+  let productoInicio = listaProductosLetras.find(
+    (producto) => producto.id === idInicio
+  );
+
+  let productoFinal = listaProductosLetras.find(
+    (producto) => producto.id === idFinal
+  );
+
+  // Verificar si se encontraron ambos productos
+  if (productoInicio && productoFinal) {
+    // Verificar si hay suficiente stock para ambos productos
+    if (productoInicio.stock >= 1 && productoFinal.stock >= 1) {
+      // Restar la cantidad seleccionada del stock de cada producto
+      productoInicio.stock -= 1;
+      productoFinal.stock -= 1;
+
+      // Agregar cada producto al carrito con una cantidad de 1
+      carrito.push({
+        id: productoInicio.id,
+        nombre: productoInicio.nombre,
+        categoria: productoInicio.categoria,
+        precioUnitario: productoInicio.precio,
+        cantidad: 1,
+      });
+
+      carrito.push({
+        id: productoFinal.id,
+        nombre: productoFinal.nombre,
+        categoria: productoFinal.categoria,
+        precioUnitario: productoFinal.precio,
+        cantidad: 1,
+      });
+
+      productosAgregados += 2;
+    } else {
+      alert(
+        "No hay suficiente stock disponible para agregar al inicio y al final de la palabra."
       );
-    } while (
-      !validarCantidad(cantidadCompraEuro) ||
-      isNaN(parseFloat(cantidadCompraEuro))
+    }
+  } else {
+    alert("Los productos seleccionados no están disponibles.");
+  }
+
+  // Mostrar mensaje indicando la cantidad de productos agregados al carrito
+  if (productosAgregados > 0) {
+    alert(
+      `Se han agregado ${productosAgregados} productos al inicio y al final de la palabra.`
+    );
+    mostrarResumenCarrito(); // Mostrar resumen del carrito
+  } else {
+    alert("No se agregaron productos al inicio y al final de la palabra.");
+  }
+}
+
+//d.- Compra de peluches
+function compraPeluches() {
+  let continuar;
+
+  do {
+    let opcionesDisponibles = listaProductosPeluche
+      .map((producto) => `${producto.id}. ${producto.nombre}`)
+      .join("\n");
+    let idProducto = parseInt(
+      prompt(
+        "Ingrese el ID del Peluche que desea comprar:\n" +
+          opcionesDisponibles +
+          "\n"
+      )
+    );
+
+    // Verificar si el usuario cancela
+    if (idProducto === null) {
+      alert("Se canceló la operación.");
+      return; // Salir de la función
+    }
+
+    // Buscar el producto en listaProductosPeluche por ID
+    let productoEncontrado = listaProductosPeluche.find(
+      (producto) => producto.id === idProducto
+    );
+
+    if (productoEncontrado) {
+      let cantidad;
+      while (true) {
+        cantidad = prompt(
+          `¿Cuántos Peluches de ${productoEncontrado.nombre} desea comprar?`
+        );
+        if (cantidad === null) {
+          // Si el usuario cancela, volver al menú de peluches
+          alert("Se canceló la operación.");
+          return compraPeluches();
+        } else {
+          cantidad = parseInt(cantidad);
+          if (!isNaN(cantidad) && cantidad > 0) {
+            if (cantidad <= productoEncontrado.stock) {
+              break;
+            } else {
+              alert("No hay suficiente stock disponible para esa cantidad.");
+            }
+          } else {
+            alert("Por favor, ingrese una cantidad válida mayor que cero.");
+          }
+        }
+      }
+
+      // Verificar si hay suficiente stock
+      if (cantidad <= productoEncontrado.stock) {
+        // Restar la cantidad comprada del stock
+        productoEncontrado.stock -= cantidad;
+
+        // Agregar el producto al carrito global
+        carrito.push({
+          id: productoEncontrado.id,
+          nombre: productoEncontrado.nombre,
+          categoria: productoEncontrado.categoria,
+          precioUnitario: productoEncontrado.precio,
+          cantidad: cantidad,
+        });
+
+        alert(
+          `Se ha agregado la cantidad de ${cantidad} Peluche/s de ${productoEncontrado.nombre} al carrito.`
+        );
+      } else {
+        alert(
+          `No hay suficiente stock disponible para Peluches de ${productoEncontrado.nombre}.`
+        );
+        continue; // Volver al inicio del bucle
+      }
+    } else {
+      alert("El ID ingresado no corresponde a ningún peluche.");
+    }
+
+    continuar = prompt(
+      "¿Desea agregar más Productos Peluches al carrito? (s/n)"
+    );
+
+    // Verificar si el usuario cancela
+    if (continuar === null) {
+      alert("Se canceló la operación.");
+      return; // Salir de la función
+    }
+
+    // Convertir a minúsculas y verificar la respuesta solo si no es null
+    continuar = continuar.toLowerCase();
+
+    // Verificar si la respuesta es válida
+    if (continuar !== "s" && continuar !== "n") {
+      alert("Por favor, ingrese una respuesta válida (s/n).");
+    }
+  } while (continuar === "s");
+
+  // Mostrar el resumen del carrito
+  if (carrito.length > 0) {
+    let total = carrito.reduce(
+      (acc, item) => acc + item.precioUnitario * item.cantidad,
+      0
     );
 
     alert(
-      "Con $ " +
-        cantidadCompraEuro +
-        " pesos puede comprar: €" +
-        cotizarDolar(cantidadCompraEuro).toFixed(2) +
-        " (euros)"
-    );
-  } else if (opcion === "b") {
-    do {
-      cantidadVtaEuro = parseFloat(
-        prompt("Ingrese la cantidad de Euros a vender:")
-      );
-    } while (
-      !validarCantidad(cantidadVtaEuro) ||
-      isNaN(parseFloat(cantidadVtaEuro))
-    );
-
-    alert(
-      "Vendiendo € " +
-        cantidadVtaEuro +
-        " euros puede obtener: $" +
-        cotizarDolar(cantidadVtaEuro, false).toFixed(2) +
-        " (pesos)"
+      "🛒🛒 Resumen Parcial del carrito de compras:\n\n" +
+        carrito
+          .map(
+            (item) =>
+              `Producto ${item.categoria} de ${item.nombre} - Cantidad: ${item.cantidad} - Precio Unitario: $${item.precioUnitario}`
+          )
+          .join("\n") +
+        "\n\nTotal a pagar: $" +
+        total.toFixed(2)
     );
   } else {
-    alert("🛑❌ Opción no válida ❌🛑");
+    alert("El carrito está vacío.");
+  }
+}
+
+// Mostrar el resumen del carrito
+function mostrarResumenCarrito() {
+  if (carrito.length > 0) {
+    let total = carrito.reduce(
+      (acc, item) => acc + item.precioUnitario * item.cantidad,
+      0
+    );
+
+    let carritoParcial = carrito
+      .map(
+        (item) =>
+          `Producto ${item.categoria} ${item.nombre} - Cantidad: ${
+            item.cantidad
+          } - Precio Unitario: $${item.precioUnitario * item.cantidad}`
+      )
+      .join("\n");
+
+    alert(
+      "🛒🛒 Resumen Parcial del carrito de compras:\n\n" +
+        carritoParcial +
+        "\n\nTotal a pagar: $" +
+        total.toFixed(2)
+    );
+  } else {
+    alert("El carrito está vacío.");
   }
 }
 
 // ------------------------------------
 // Código Principal
 // ------------------------------------
-alert("🏦 Simulador Financiero 🏦");
+alert("🧶 Sistema de Ventas de Amigurumis 🧶");
 
 for (let i = 0; i < loginAttempts; i++) {
   let enteredPassword = prompt("🔑🔑 Ingrese su password 🔑🔑");
 
   if (parseInt(enteredPassword) === password) {
     loggedIn = true;
-    alert("🖥️⌨ Bienvenido al Simulador Financiero ⌨🖥️");
+    alert("🪢🪡Bienvenido a Luani Amigurumis 🪡🪢");
     break; // Sale del bucle si la contraseña es correcta
   } else {
     alert(
@@ -291,31 +830,47 @@ if (loggedIn) {
 
   do {
     option = prompt(
-      "Seleccione el tipo de operación que desea realizar \n   a.- Simulador Prestamo personal 💰\n   b.- Simulador Compra/Venta U$D (Dolar) 💵 \n   c.- Simulador Compra/Venta € (Euros) 💶 \n   d.- Salir 🚪"
+      "Seleccione el tipo de Amigurumi que desea comprar \n  a.- Sonajeros \n  b.- Cuneros \n  c.- Nombres \n  d.- Peluches 🧸\n➖➖➖➖➖➖➖➖\n  e.- 🔎 Busqueda 🔎 \n➖➖➖➖➖➖➖➖\n  p.- 💲 Pagar 💲 \n➖➖➖➖➖➖➖➖\n  x.-🚪 Salir 🚪"
     );
 
     switch (option) {
       case "a":
-        simuladorPrestamo();
+        compraSonajero();
         break;
 
       case "b":
-        simuladorDolares();
+        compraCunero();
         break;
 
       case "c":
-        simuladorEuros();
+        compraLetrasPorPalabra();
         break;
 
       case "d":
-        alert("➡️➡️Saliendo del Simulador Financiero");
+        compraPeluches();
         break;
+
+      case "e":
+        buscarProducto();
+        break;
+
+      case "p":
+        pagarCarrito();
+        break;
+
+      case "x":
+        if (confirmarSalirSinFinalizarCompra()) {
+          alert("➡️➡️Saliendo del Sistema de Ventas Amigurumi");
+          break;
+        }
+        // Si el usuario decide no salir, continúa con el bucle
+        continue;
 
       default:
         alert("🛑❌ Opción no válida ❌🛑");
         break;
     }
-  } while (option !== "d");
+  } while (option !== "x");
 } else {
   alert(
     "Ha alcanzado el número máximo de intentos. \n🔒🔒Su cuenta ha sido bloqueada.🔒🔒"
