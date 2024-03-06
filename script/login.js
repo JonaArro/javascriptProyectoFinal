@@ -1,9 +1,50 @@
-//Variables principales
-let password = 1982;
-let loginAttempts = 4; // Número máximo de intentos
-let loggedIn = false;
+const btnIngresar = document.querySelector("#getIntoForm"),
+  mailInput = document.querySelector("#inputEmail"),
+  passInput = document.querySelector("#inputPass");
 
-// Función para manejar el inicio de sesión
+let attempts = 0;
+
+function initSession(users) {
+  let userFound = users.find((userFound) => {
+    console.log(userFound);
+    return (
+      userFound.mail == mailInput.value && userFound.pass == passInput.value
+    );
+  });
+
+  if (userFound) {
+    alert("Usuario encontrado");
+    location.href = "./products.html";
+  } else {
+    attempts++;
+    if (attempts >= 4) {
+      alert(
+        "Has excedido el número de intentos permitidos. Tu cuenta ha sido bloqueada."
+      );
+      users.forEach((user) => {
+        if (user.mail === mailInput.value) {
+          user.blocked = true;
+          localStorage.setItem("users", JSON.stringify(users));
+        }
+      });
+    } else {
+      alert("Usuario No encontrado. Intento " + attempts + " de 4.");
+    }
+  }
+}
+
+function recoverLs() {
+  return JSON.parse(localStorage.getItem("users"));
+}
+
+const usersLS = recoverLs();
+
+btnIngresar.addEventListener("submit", (e) => {
+  e.preventDefault();
+  initSession(usersLS);
+});
+
+/* // Función para manejar el inicio de sesión
 function handleLogin(email, enteredPassword) {
   // Verificar la contraseña utilizando tu lógica existente en JavaScript
   for (let i = 0; i < loginAttempts; i++) {
@@ -42,3 +83,4 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 });
+ */
