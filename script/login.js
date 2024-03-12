@@ -4,6 +4,9 @@ const formGetInto = document.querySelector("#getIntoForm"),
 
 let attempts = 0;
 
+// Seleccionar el checkbox "Recuérdame"
+const rememberCheckbox = document.querySelector("#exampleCheck1");
+
 function initSession(users, email, password) {
   let userFound = users.find((user) => {
     return user.mail === email && user.pass === password;
@@ -65,4 +68,21 @@ formGetInto.addEventListener("submit", (e) => {
   }
 
   initSession(usersLS, email, password);
+});
+
+rememberCheckbox.addEventListener("click", function () {
+  // Obtener los valores del correo electrónico y la contraseña
+  const email = mailInput.value;
+  const password = passInput.value;
+
+  // Verificar si el checkbox está marcado
+  if (this.checked) {
+    // Guardar los valores en el localStorage
+    localStorage.setItem("rememberedEmail", email);
+    localStorage.setItem("rememberedPassword", password);
+  } else {
+    // Si el checkbox no está marcado, eliminar los valores del localStorage
+    localStorage.removeItem("rememberedEmail");
+    localStorage.removeItem("rememberedPassword");
+  }
 });

@@ -95,7 +95,7 @@ function mostrarCarrito() {
     Toastify({
       text: `Carrito vacío`,
       duration: 3000,
-      close: true,
+      close: false,
       gravity: "top",
       position: "center",
       style: {
