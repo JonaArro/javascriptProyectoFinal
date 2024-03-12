@@ -1,36 +1,50 @@
-const btnIngresar = document.querySelector("#getIntoForm"),
+const formGetInto = document.querySelector("#getIntoForm"),
   mailInput = document.querySelector("#inputEmail"),
   passInput = document.querySelector("#inputPass");
 
 let attempts = 0;
 
-function initSession(users) {
-  let userFound = users.find((userFound) => {
-    console.log(userFound);
-    return (
-      userFound.mail == mailInput.value && userFound.pass == passInput.value
-    );
+function initSession(users, email, password) {
+  let userFound = users.find((user) => {
+    return user.mail === email && user.pass === password;
   });
-
+  ////AGREGAR LOGICA DE USUARIO NO ENCONTRADO
   if (userFound) {
-    alert("Usuario encontrado");
-    location.href = "./products.html";
+    if (userFound.status !== "blocked") {
+      /*       alert("Usuario encontrado"); */
+      location.href = "./products.html";
+    } else {
+      alert("Tu cuenta está bloqueada. Por favor, contacta al administrador.");
+    }
   } else {
     attempts++;
     if (attempts >= 4) {
-      alert(
-        "Has excedido el número de intentos permitidos. Tu cuenta ha sido bloqueada."
-      );
+      Swal.fire({
+        position: "justify",
+        icon: "error",
+        title:
+          "Has excedido el número de intentos permitidos. Tu cuenta ha sido bloqueada.",
+        showConfirmButton: true,
+      });
+      // Bloquear la cuenta del usuario
       users.forEach((user) => {
         if (user.mail === mailInput.value) {
-          user.blocked = true;
-          localStorage.setItem("users", JSON.stringify(users));
+          user.block(); // Llama al método block para bloquear la cuenta
+          saveUsers(users);
         }
       });
     } else {
-      alert("Usuario No encontrado. Intento " + attempts + " de 4.");
+      Swal.fire({
+        position: "justify",
+        icon: "warning",
+        title: "Password Incorrecto. Intento " + attempts + " de 4.",
+        showConfirmButton: true,
+      });
     }
   }
+}
+function saveUsers(users) {
+  localStorage.setItem("users", JSON.stringify(users));
 }
 
 function recoverLs() {
@@ -39,48 +53,15 @@ function recoverLs() {
 
 const usersLS = recoverLs();
 
-btnIngresar.addEventListener("submit", (e) => {
+formGetInto.addEventListener("submit", (e) => {
   e.preventDefault();
-  initSession(usersLS);
+  const email = mailInput.value;
+  const password = passInput.value;
+
+  if (!email || !password) {
+    alert("Por favor, complete todos los campos.");
+    return;
+  }
+
+  initSession(usersLS, email, password);
 });
-
-/* // Función para manejar el inicio de sesión
-function handleLogin(email, enteredPassword) {
-  // Verificar la contraseña utilizando tu lógica existente en JavaScript
-  for (let i = 0; i < loginAttempts; i++) {
-    if (parseInt(enteredPassword) === password) {
-      loggedIn = true;
-      alert("🪢🪡Bienvenido a LUANI Amigurumis 🪡🪢");
-      break; // Sale del bucle si la contraseña es correcta
-    } else {
-      alert(
-        "❗Ingresó incorrectamente su password, pruebe nuevamente. \nIntento: " +
-          (i + 1)
-      );
-    }
-  }
-
-  if (!loggedIn) {
-    alert(
-      "Ha alcanzado el número máximo de intentos. \n🔒🔒Su cuenta ha sido bloqueada.🔒🔒"
-    );
-  }
-}
-
-// Evento de inicio de sesión
-document.addEventListener("DOMContentLoaded", function () {
-  let loginForm = document.getElementById("loginForm");
-  if (loginForm) {
-    loginForm.addEventListener("submit", function (event) {
-      event.preventDefault(); // Evita que el formulario se envíe
-
-      // Obtener los valores de correo electrónico y contraseña ingresados por el usuario
-      let email = document.getElementById("exampleInputEmail1").value;
-      let password = document.getElementById("exampleInputPassword1").value;
-
-      // Llamar a la función handleLogin con los datos ingresados por el usuario
-      handleLogin(email, password);
-    });
-  }
-});
- */
