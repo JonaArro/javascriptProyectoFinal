@@ -52,7 +52,7 @@ formRegister.addEventListener("submit", (e) => {
     }).then(() => {
       formRegister.reset();
       // Redireccionar a la pantalla de inicio de sesión
-      window.location.href = "./login.html";
+      window.location.href = "../pages/login.html";
     });
   } else {
     Swal.fire({

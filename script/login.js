@@ -13,7 +13,7 @@ function initSession(users, email, password) {
   if (userFound) {
     if (userFound.status !== "blocked") {
       /*       alert("Usuario encontrado"); */
-      location.href = "./products.html";
+      location.href = "../pages/products.html";
     } else {
       alert("Tu cuenta está bloqueada. Por favor, contacta al administrador.");
     }
