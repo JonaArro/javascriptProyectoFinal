@@ -21,6 +21,9 @@ function mostrarTotalCompra(totalCompra) {
         <p>${totalMessage}</p>
       `;
 
+  // Ocultar el carrito al mostrar el modal de confirmación
+  document.getElementById("carritoContenedor").style.display = "none";
+
   // Mostrar el modal como un modal de diálogo
   const myModal = new bootstrap.Modal(document.getElementById("confirmModal"), {
     backdrop: "static",
@@ -31,7 +34,7 @@ function mostrarTotalCompra(totalCompra) {
   // Función para el evento de confirmar compra
   function confirmPurchase() {
     Swal.fire({
-      position: "top-end",
+      position: "bottom-end'",
       icon: "success",
       title: "Compra realizada con éxito.",
       showConfirmButton: false,
