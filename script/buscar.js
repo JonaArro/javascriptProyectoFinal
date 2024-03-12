@@ -15,31 +15,31 @@ document.addEventListener("DOMContentLoaded", function () {
         nombre: "Sonajero Perro",
         categoria: "Sonajero",
         precio: 6400,
-        imagen: "/asset/1.Sonajero_Perro.png",
+        imagen: "../asset/1.Sonajero_Perro.png",
       },
       {
         nombre: "Sonajero Gato",
         categoria: "Sonajero",
         precio: 7300,
-        imagen: "/asset/2.Sonajero_Gato.png",
+        imagen: "../asset/2.Sonajero_Gato.png",
       },
       {
         nombre: "Peluche Elefante",
         categoria: "Peluche",
         precio: 8500,
-        imagen: "/asset/3.Peluche_Elefante.png",
+        imagen: "../asset/3.Peluche_Elefante.png",
       },
       {
         nombre: "Peluche Zorro",
         categoria: "Peluche",
         precio: 7000,
-        imagen: "/asset/4.Peluche_Zorro.png",
+        imagen: "../asset/4.Peluche_Zorro.png",
       },
       {
         nombre: "Cunero Dragon Ball",
         categoria: "Cunero",
         precio: 15000,
-        imagen: "/asset/5.Cunero_Dragon_Ball.png",
+        imagen: "../asset/5.Cunero_Dragon_Ball.png",
       },
     ];
     const resultados = productos.filter((producto) =>
