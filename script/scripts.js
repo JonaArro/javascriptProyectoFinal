@@ -109,7 +109,8 @@ function obtenerPrecioUnitario(nombreProducto) {
 const botonesAddToCart = document.querySelectorAll(".btnAddToCart");
 
 botonesAddToCart.forEach((boton) => {
-  boton.addEventListener("click", () => {
+  boton.addEventListener("click", (event) => {
+    event.preventDefault();
     const nombreProducto = boton
       .closest(".product")
       .querySelector("h5").innerText;

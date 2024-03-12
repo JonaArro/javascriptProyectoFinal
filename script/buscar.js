@@ -46,7 +46,8 @@ document.addEventListener("DOMContentLoaded", function () {
       producto.nombre.toLowerCase().includes(textoBusqueda)
     );
     if (resultados.length === 0) {
-      contenedorResultados.innerHTML = "<p>No se encontraron resultados.</p>";
+      const contenedorMensaje = document.querySelector("#mensaje-busqueda");
+      contenedorMensaje.innerHTML = "<p>Ingrese un término de búsqueda.</p>";
       return;
     }
     //HTML para mostrar los resultados
