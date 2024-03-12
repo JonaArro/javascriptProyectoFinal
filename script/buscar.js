@@ -14,31 +14,31 @@ document.addEventListener("DOMContentLoaded", function () {
       {
         nombre: "Sonajero Perro",
         categoria: "Sonajero",
-        precio: 8000,
+        precio: 6400,
         imagen: "/asset/1.Sonajero_Perro.png",
       },
       {
         nombre: "Sonajero Gato",
         categoria: "Sonajero",
-        precio: 8000,
+        precio: 7300,
         imagen: "/asset/2.Sonajero_Gato.png",
       },
       {
         nombre: "Peluche Elefante",
         categoria: "Peluche",
-        precio: 8000,
+        precio: 8500,
         imagen: "/asset/3.Peluche_Elefante.png",
       },
       {
         nombre: "Peluche Zorro",
         categoria: "Peluche",
-        precio: 8000,
+        precio: 7000,
         imagen: "/asset/4.Peluche_Zorro.png",
       },
       {
         nombre: "Cunero Dragon Ball",
         categoria: "Cunero",
-        precio: 8000,
+        precio: 15000,
         imagen: "/asset/5.Cunero_Dragon_Ball.png",
       },
     ];
@@ -49,7 +49,7 @@ document.addEventListener("DOMContentLoaded", function () {
       contenedorResultados.innerHTML = "<p>No se encontraron resultados.</p>";
       return;
     }
-    // Generar HTML para mostrar los resultados
+    //HTML para mostrar los resultados
     const htmlResultados = resultados
       .map(
         (producto) =>

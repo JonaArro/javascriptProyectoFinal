@@ -1,4 +1,8 @@
-// Función para resetear las cantidades de los contenedores a cero
+function limpiarSessionStorage() {
+  sessionStorage.clear();
+}
+
+// Resetear las cantidades de los contenedores a cero
 function resetQuantities() {
   const dropdownButtons = document.querySelectorAll(".dropdownMenuButton");
   dropdownButtons.forEach((button) => {
@@ -6,7 +10,7 @@ function resetQuantities() {
   });
 }
 
-// Función para mostrar el contenido del modal de confirmación de compra
+// Mostrar el contenido del modal de confirmación de compra
 function mostrarTotalCompra(totalCompra) {
   const confirmationMessage = `¿Estás seguro que deseas realizar la compra?`;
   const totalMessage = `Total a pagar: $${totalCompra.toFixed(2)}`;
@@ -26,36 +30,41 @@ function mostrarTotalCompra(totalCompra) {
 
   // Función para el evento de confirmar compra
   function confirmPurchase() {
-    alert("Compra realizada con éxito.");
+    Swal.fire({
+      position: "top-end",
+      icon: "success",
+      title: "Compra realizada con éxito.",
+      showConfirmButton: false,
+      timer: 1500,
+    }).then(() => {
+      limpiarSessionStorage();
+      // Limpiar el carrito
+      carrito = {};
 
-    // Limpiar el carrito
-    carrito = {};
+      // Actualizar la visualización del carrito
+      mostrarCarrito();
 
-    // Actualizar la visualización del carrito
-    mostrarCarrito();
+      // Actualizar el contador del carrito después de limpiarlo
+      updateCartCounter();
 
-    // Actualizar el contador del carrito después de limpiarlo
-    updateCartCounter();
+      // Reiniciar las cantidades de los contenedores a cero
+      resetQuantities();
 
-    // Reiniciar las cantidades de los contenedores a cero
-    resetQuantities();
+      myModal.hide();
 
-    // Cerrar el modal
-    myModal.hide();
-
-    // Eliminar el event listener después de confirmar la compra
-    document
-      .getElementById("confirmPurchaseButton")
-      .removeEventListener("click", confirmPurchase);
+      // Eliminar el event listener después de confirmar la compra
+      document
+        .getElementById("confirmPurchaseButton")
+        .removeEventListener("click", confirmPurchase);
+    });
   }
 
-  // Event listener para el botón de confirmar
   document
     .getElementById("confirmPurchaseButton")
     .addEventListener("click", confirmPurchase);
 }
 
-// Función para calcular el total de la compra
+// Calcular el total de la compra
 function calcularTotalCompra() {
   let totalCompra = 0;
 
@@ -69,7 +78,7 @@ function calcularTotalCompra() {
   return totalCompra;
 }
 
-// Función para mostrar el contenido del carrito en una ventana emergente
+// Mostrar el contenido del carrito en una ventana emergente
 function mostrarCarrito() {
   const carritoContenedorExistente =
     document.getElementById("carritoContenedor");
@@ -83,23 +92,32 @@ function mostrarCarrito() {
 
   // Verificar si el carrito está vacío
   if (Object.keys(carrito).length === 0) {
-    alert("El carrito está vacío.");
+    Toastify({
+      text: `Carrito vacío`,
+      duration: 3000,
+      close: true,
+      gravity: "top",
+      position: "center",
+      style: {
+        background: "green",
+      },
+    }).showToast();
     return;
   }
 
-  // Creo un elemento para mostrar la fecha de la compra
+  // Visualizo la fecha de la compra
   const fechaCompraElement = document.createElement("p");
   fechaCompraElement.innerText = `Día de la compra: ${new Date(
     Date.now()
   ).toLocaleDateString()}`;
   carritoContenedor.appendChild(fechaCompraElement);
 
-  // Creo un elemento para mostrar el texto "Detalle de la compra hasta el momento"
+  // Mostrar el texto "Detalle de la compra hasta el momento"
   const detalleCompraElement = document.createElement("p");
   detalleCompraElement.innerText = "Detalle de la compra hasta el momento:";
   carritoContenedor.appendChild(detalleCompraElement);
 
-  // Creo una lista para mostrar los elementos del carrito
+  // Mostrar los elementos del carrito
   const listaCarrito = document.createElement("ul");
 
   let totalSinIva = 0;

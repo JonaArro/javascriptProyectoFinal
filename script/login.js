@@ -9,6 +9,7 @@ function initSession(users, email, password) {
     return user.mail === email && user.pass === password;
   });
   ////AGREGAR LOGICA DE USUARIO NO ENCONTRADO
+  ////LOGICA PARA DESBLOQUEAR EL USUARIO AUN NO IMPLEMENTADA
   if (userFound) {
     if (userFound.status !== "blocked") {
       /*       alert("Usuario encontrado"); */

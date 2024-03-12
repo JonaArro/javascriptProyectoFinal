@@ -1,9 +1,34 @@
 let carrito = {};
 
+function guardarCarritoEnSessionStorage() {
+  sessionStorage.setItem("carrito", JSON.stringify(carrito));
+}
+
+function cargarCarritoDesdeSessionStorage() {
+  const carritoGuardado = sessionStorage.getItem("carrito");
+  if (carritoGuardado) {
+    carrito = JSON.parse(carritoGuardado);
+    updateCartCounter(); // Actualizar el contador del carrito después de cargarlo
+  }
+}
+
+cargarCarritoDesdeSessionStorage();
+
 // Función para agregar un producto al carrito
 function addToCart(nombre, cantidad, precioUnitario) {
   if (isNaN(cantidad) || cantidad <= 0) {
-    alert("Por favor, ingrese una cantidad válida.");
+    Toastify({
+      text: `Por favor, ingrese una cantidad válida.`,
+      duration: 3000, // Duración del toast en milisegundos (3 segundos en este caso)
+      close: true, // Habilitar el botón para cerrar el toast
+      gravity: "bottom", // Posición del toast en la pantalla
+      position: "center", // Posición del toast en la pantalla
+      style: {
+        background: "red",
+      },
+    }).showToast();
+
+    /*  alert("Por favor, ingrese una cantidad válida."); */
     return;
   }
 
@@ -23,6 +48,16 @@ function addToCart(nombre, cantidad, precioUnitario) {
 
   // Actualizar el contador del carrito
   updateCartCounter();
+
+  Toastify({
+    text: `Se agregó "${nombre}" al carrito`,
+    duration: 3000, // Duración del toast en milisegundos (3 segundos en este caso)
+    close: true, // Habilitar el botón para cerrar el toast
+    gravity: "bottom", // Posición del toast en la pantalla
+    position: "center", // Posición del toast en la pantalla
+  }).showToast();
+
+  guardarCarritoEnSessionStorage();
 }
 
 // Función para actualizar el contador del carrito
@@ -52,11 +87,11 @@ document.querySelectorAll(".quantity-selection").forEach((item) => {
 // Función para obtener el precio unitario según el nombre del producto
 function obtenerPrecioUnitario(nombreProducto) {
   const productos = [
-    { nombre: "Sonajero Perro", precioUnitario: 3500 },
-    { nombre: "Sonajero Gato", precioUnitario: 2000 },
-    { nombre: "Peluche Elefante", precioUnitario: 3000 },
-    { nombre: "Peluche Zorro", precioUnitario: 4000 },
-    { nombre: "Cunero Dragon Ball", precioUnitario: 4000 },
+    { nombre: "Sonajero Perro", precioUnitario: 6400 },
+    { nombre: "Sonajero Gato", precioUnitario: 7300 },
+    { nombre: "Peluche Elefante", precioUnitario: 8500 },
+    { nombre: "Peluche Zorro", precioUnitario: 7000 },
+    { nombre: "Cunero Dragon Ball", precioUnitario: 15000 },
   ];
 
   // Buscar el producto por su nombre
