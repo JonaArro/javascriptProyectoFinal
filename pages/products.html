@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta name="description" content="" />
+    <meta name="Jonatan Arroyo" content="" />
+    <title>Tienda Amigurumis Luani</title>
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.6/dist/sweetalert2.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css"
+    />
+
+    <link href="../css/styles.css" rel="stylesheet" />
+  </head>
+  <body>
+    <!-- Navigation-->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+      <div class="container px-4 px-lg-5">
+        <a class="navbar-brand" href="../pages/products.html">Luani</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
+            <li class="nav-item">
+              <a
+                class="nav-link active"
+                aria-current="page"
+                href="../pages/buscar.html"
+                >Buscar</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="#!">About</a>
+            </li>
+          </ul>
+          <form class="d-flex">
+            <button
+              class="btn btn-outline-dark"
+              type="button"
+              onclick="mostrarCarrito()"
+            >
+              <i class="bi-cart-fill me-1"></i>Cart
+              <span
+                class="badge bg-dark text-white ms-1 rounded-pill"
+                id="cartCounter"
+                >0</span
+              >
+            </button>
+          </form>
+        </div>
+      </div>
+    </nav>
+    <!-- Header-->
+    <header class="bg-dark py-5">
+      <div class="container px-4 px-lg-5 my-5">
+        <div class="text-center text-white">
+          <h1 class="display-4 fw-bolder">Luani</h1>
+          <p class="lead fw-normal text-white-50 mb-0">
+            Tienda OnLine de Amigurumis
+          </p>
+        </div>
+      </div>
+    </header>
+    <!-- Section-->
+    <section class="py-5">
+      <div class="container px-4 px-lg-5 mt-5">
+        <div
+          class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center contenedor"
+        >
+          <!-- Producto 1 -->
+          <div class="col mb-5 contenedorHijo">
+            <div class="card h-100 product">
+              <img
+                class="card-img-top product-image"
+                src="/asset/1.Sonajero_Perro.png"
+                alt="Sonajero Perro"
+              />
+              <!-- Product details-->
+              <div class="card-body p-4">
+                <div class="text-center">
+                  <!-- Product name-->
+                  <h5 class="fw-bolder">Sonajero Perro</h5>
+                  <div
+                    class="d-flex justify-content-center small text-warning mb-2"
+                  >
+                    <div class="bi-star-fill"></div>
+                    <div class="bi-star-fill"></div>
+                    <div class="bi-star-fill"></div>
+                    <div class="bi-star-fill"></div>
+                  </div>
+                  <!-- Product price-->
+                  <span class="text-muted">Categoria: Sonajero $</span>
+                  6400
+                </div>
+                <!-- Dropdown for selecting quantity -->
+                <div class="dropdown mt-3 contenedorHijo text-center">
+                  <button
+                    class="btn btn-secondary dropdown-toggle dropdownMenuButton"
+                    type="button"
+                    data-bs-toggle="dropdown"
+                    aria-haspopup="true"
+                    aria-expanded="false"
+                  >
+                    Cantidad
+                  </button>
+                  <ul
+                    class="dropdown-menu"
+                    aria-labelledby="dropdownMenuButton"
+                  >
+                    <li>
+                      <a class="dropdown-item quantity-selection" href="#">1</a>
+                    </li>
+                    <li>
+                      <a class="dropdown-item quantity-selection" href="#">2</a>
+                    </li>
+                    <li>
+                      <a class="dropdown-item quantity-selection" href="#">3</a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+
+              <script>
+                document
+                  .querySelectorAll(".quantity-selection")
+                  .forEach((item) => {
+                    item.addEventListener("click", (event) => {
+                      event.preventDefault();
+                      const selectedQuantity = event.target.innerText;
+                      event.target
+                        .closest(".dropdown")
+                        .querySelector(
+                          ".dropdownMenuButton"
+                        ).innerText = `Quantity: ${selectedQuantity}`;
+                    });
+                  });
+              </script>
+              <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                <div class="text-center">
+                  <a class="btn btn-outline-dark mt-auto btnAddToCart" href="#"
+                    >Add to cart</a
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Producto 2 -->
+          <div class="col mb-5 contenedorHijo">
+            <div class="card h-100 product">
+              <div
+                class="badge bg-dark text-white position-absolute"
+                style="top: 0.5rem; right: 0.5rem"
+              >
+                Sale
+              </div>
+              <img
+                class="card-img-top product-image"
+                src="/asset/2.Sonajero_Gato.png"
+                alt="Sonajero Gato"
+              />
+              <!-- Product details-->
+              <div class="card-body p-4">
+                <div class="text-center">
+                  <!-- Product name-->
+                  <h5 class="fw-bolder">Sonajero Gato</h5>
+                  <div
+                    class="d-flex justify-content-center small text-warning mb-2"
+                  >
+                    <div class="bi-star-fill"></div>
+                    <div class="bi-star-fill"></div>
+                    <div class="bi-star-fill"></div>
+                    <div class="bi-star-fill"></div>
+                    <div class="bi-star-fill"></div>
+                  </div>
+                  <!-- Product price-->
+                  <span class="text-muted">Categoria: Sonajero $</span>
+                  7300
+                </div>
+                <div class="dropdown mt-3 contenedorHijo text-center">
+                  <button
+                    class="btn btn-secondary dropdown-toggle dropdownMenuButton"
+                    type="button"
+                    data-bs-toggle="dropdown"
+                    aria-haspopup="true"
+                    aria-expanded="false"
+                  >
+                    Cantidad
+                  </button>
+                  <ul
+                    class="dropdown-menu"
+                    aria-labelledby="dropdownMenuButton"
+                  >
+                    <li>
+                      <a class="dropdown-item quantity-selection" href="#">1</a>
+                    </li>
+                    <li>
+                      <a class="dropdown-item quantity-selection" href="#">2</a>
+                    </li>
+                    <li>
+                      <a class="dropdown-item quantity-selection" href="#">3</a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+
+              <script>
+                document
+                  .querySelectorAll(".quantity-selection")
+                  .forEach((item) => {
+                    item.addEventListener("click", (event) => {
+                      event.preventDefault();
+                      const selectedQuantity = event.target.innerText;
+                      event.target
+                        .closest(".dropdown")
+                        .querySelector(
+                          ".dropdownMenuButton"
+                        ).innerText = `Quantity: ${selectedQuantity}`;
+                    });
+                  });
+              </script>
+              <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                <div class="text-center">
+                  <a class="btn btn-outline-dark mt-auto btnAddToCart" href="#"
+                    >Add to cart</a
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Producto 3 -->
+          <div class="col mb-5 contenedorHijo">
+            <div class="card h-100 product">
+              <div
+                class="badge bg-dark text-white position-absolute"
+                style="top: 0.5rem; right: 0.5rem"
+              >
+                Sale
+              </div>
+              <img
+                class="card-img-top product-image"
+                src="/asset/3.Peluche_Elefante.png"
+                alt="Peluche Elefante"
+              />
+              <!-- Product details-->
+              <div class="card-body p-4">
+                <div class="text-center">
+                  <!-- Product name-->
+                  <h5 class="fw-bolder">Peluche Elefante</h5>
+                  <div
+                    class="d-flex justify-content-center small text-warning mb-2"
+                  >
+                    <div class="bi-star-fill"></div>
+                    <div class="bi-star-fill"></div>
+                    <div class="bi-star-fill"></div>
+                  </div>
+                  <!-- Product price-->
+                  <span class="text-muted">Categoria: Peluche $</span>
+                  8500
+                </div>
+                <div class="dropdown mt-3 contenedorHijo text-center">
+                  <button
+                    class="btn btn-secondary dropdown-toggle dropdownMenuButton"
+                    type="button"
+                    data-bs-toggle="dropdown"
+                    aria-haspopup="true"
+                    aria-expanded="false"
+                  >
+                    Cantidad
+                  </button>
+                  <ul
+                    class="dropdown-menu"
+                    aria-labelledby="dropdownMenuButton"
+                  >
+                    <li>
+                      <a class="dropdown-item quantity-selection" href="#">1</a>
+                    </li>
+                    <li>
+                      <a class="dropdown-item quantity-selection" href="#">2</a>
+                    </li>
+                    <li>
+                      <a class="dropdown-item quantity-selection" href="#">3</a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+
+              <script>
+                document
+                  .querySelectorAll(".quantity-selection")
+                  .forEach((item) => {
+                    item.addEventListener("click", (event) => {
+                      event.preventDefault();
+                      const selectedQuantity = event.target.innerText;
+                      event.target
+                        .closest(".dropdown")
+                        .querySelector(
+                          ".dropdownMenuButton"
+                        ).innerText = `Quantity: ${selectedQuantity}`;
+                    });
+                  });
+              </script>
+              <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                <div class="text-center">
+                  <a class="btn btn-outline-dark mt-auto btnAddToCart" href="#"
+                    >Add to cart</a
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Producto 4 -->
+          <div class="col mb-5 contenedorHijo">
+            <div class="card h-100 product">
+              <div
+                class="badge bg-dark text-white position-absolute"
+                style="top: 0.5rem; right: 0.5rem"
+              >
+                Sale
+              </div>
+              <img
+                class="card-img-top product-image"
+                src="/asset/4.Peluche_Zorro.png"
+                alt="Peluche Zorro"
+              />
+              <!-- Product details-->
+              <div class="card-body p-4">
+                <div class="text-center">
+                  <!-- Product name-->
+                  <h5 class="fw-bolder">Peluche Zorro</h5>
+                  <div
+                    class="d-flex justify-content-center small text-warning mb-2"
+                  >
+                    <div class="bi-star-fill"></div>
+                    <div class="bi-star-fill"></div>
+                    <div class="bi-star-fill"></div>
+                    <div class="bi-star-fill"></div>
+                  </div>
+                  <!-- Product price-->
+                  <span class="text-muted">Categoria: Peluche $</span>
+                  7000
+                </div>
+                <div class="dropdown mt-3 contenedorHijo text-center">
+                  <button
+                    class="btn btn-secondary dropdown-toggle dropdownMenuButton"
+                    type="button"
+                    data-bs-toggle="dropdown"
+                    aria-haspopup="true"
+                    aria-expanded="false"
+                  >
+                    Cantidad
+                  </button>
+                  <ul
+                    class="dropdown-menu"
+                    aria-labelledby="dropdownMenuButton"
+                  >
+                    <li>
+                      <a class="dropdown-item quantity-selection" href="#">1</a>
+                    </li>
+                    <li>
+                      <a class="dropdown-item quantity-selection" href="#">2</a>
+                    </li>
+                    <li>
+                      <a class="dropdown-item quantity-selection" href="#">3</a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+
+              <script>
+                document
+                  .querySelectorAll(".quantity-selection")
+                  .forEach((item) => {
+                    item.addEventListener("click", (event) => {
+                      event.preventDefault();
+                      const selectedQuantity = event.target.innerText;
+                      event.target
+                        .closest(".dropdown")
+                        .querySelector(
+                          ".dropdownMenuButton"
+                        ).innerText = `Quantity: ${selectedQuantity}`;
+                    });
+                  });
+              </script>
+              <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                <div class="text-center">
+                  <a class="btn btn-outline-dark mt-auto btnAddToCart" href="#"
+                    >Add to cart</a
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Producto 5 -->
+          <div class="col mb-5 contenedorHijo">
+            <div class="card h-100 product">
+              <div
+                class="badge bg-dark text-white position-absolute"
+                style="top: 0.5rem; right: 0.5rem"
+              >
+                Sale
+              </div>
+              <img
+                class="card-img-top product-image"
+                src="/asset/5.Cunero_Dragon_Ball.png"
+                alt="..."
+              />
+              <!-- Product details-->
+              <div class="card-body p-4">
+                <div class="text-center">
+                  <!-- Product name-->
+                  <h5 class="fw-bolder">Cunero Dragon Ball</h5>
+                  <div
+                    class="d-flex justify-content-center small text-warning mb-2"
+                  >
+                    <div class="bi-star-fill"></div>
+                    <div class="bi-star-fill"></div>
+                    <div class="bi-star-fill"></div>
+                    <div class="bi-star-fill"></div>
+                    <div class="bi-star-fill"></div>
+                  </div>
+                  <!-- Product price-->
+                  <span class="text-muted">Categoria: Cunero $</span>
+                  15000
+                </div>
+                <div class="dropdown mt-3 contenedorHijo text-center">
+                  <button
+                    class="btn btn-secondary dropdown-toggle dropdownMenuButton"
+                    type="button"
+                    data-bs-toggle="dropdown"
+                    aria-haspopup="true"
+                    aria-expanded="false"
+                  >
+                    Cantidad
+                  </button>
+                  <ul
+                    class="dropdown-menu"
+                    aria-labelledby="dropdownMenuButton"
+                  >
+                    <li>
+                      <a class="dropdown-item quantity-selection" href="#">1</a>
+                    </li>
+                    <li>
+                      <a class="dropdown-item quantity-selection" href="#">2</a>
+                    </li>
+                    <li>
+                      <a class="dropdown-item quantity-selection" href="#">3</a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+
+              <script>
+                document
+                  .querySelectorAll(".quantity-selection")
+                  .forEach((item) => {
+                    item.addEventListener("click", (event) => {
+                      event.preventDefault();
+                      const selectedQuantity = event.target.innerText;
+                      event.target
+                        .closest(".dropdown")
+                        .querySelector(
+                          ".dropdownMenuButton"
+                        ).innerText = `Quantity: ${selectedQuantity}`;
+                    });
+                  });
+              </script>
+              <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                <div class="text-center">
+                  <a class="btn btn-outline-dark mt-auto btnAddToCart" href="#"
+                    >Add to cart</a
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contenedor del carrito -->
+    <div id="carrito-container"></div>
+
+    <!-- Modal de confirmación de compra -->
+    <div
+      class="modal fade"
+      id="confirmModal"
+      tabindex="-1"
+      aria-labelledby="confirmModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="confirmModalLabel">
+              Confirmación de compra
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body" id="confirmationBody">
+            <!-- Contenido del mensaje de confirmación -->
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Cancelar
+            </button>
+            <button
+              type="button"
+              class="btn btn-primary"
+              id="confirmPurchaseButton"
+            >
+              Confirmar
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Contenedor para mostrar la confirmación y el total a pagar -->
+    <div id="confirmationContainer"></div>
+    <!-- Footer-->
+    <footer class="py-5 bg-dark">
+      <div class="container">
+        <p class="m-0 text-center text-white">
+          Copyright &copy; Jonatan Damian Arroyo 2024
+        </p>
+      </div>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.6/dist/sweetalert2.all.min.js"></script>
+    <script
+      type="text/javascript"
+      src="https://cdn.jsdelivr.net/npm/toastify-js"
+    ></script>
+    <script src="/script/scripts.js"></script>
+    <script src="/script/carrito.js"></script>
+  </body>
+</html>
