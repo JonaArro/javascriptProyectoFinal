@@ -4,6 +4,17 @@ const formRegister = document.querySelector("#formReg"),
   passReg = document.querySelector("#regPass"),
   btnReg = document.querySelector("#regBtn");
 
+const firebaseConfig = {
+  apiKey: "AIzaSyAXo_tyQx5u6xDk-e-abG-UlQCSrQ1V9Dc",
+  authDomain: "proyectofinalcoderjonaarro.firebaseapp.com",
+  projectId: "proyectofinalcoderjonaarro",
+  storageBucket: "proyectofinalcoderjonaarro.appspot.com",
+  messagingSenderId: "602800187537",
+  appId: "1:602800187537:web:f9f724917ac227f29e7730",
+  measurementId: "G-7BN050VLHX",
+};
+firebase.initializeApp(firebaseConfig);
+
 function readJsonFile(callback) {
   fetch("../db/usuarios.json")
     .then((response) => {
@@ -19,7 +30,7 @@ function readJsonFile(callback) {
 function saveToJsonFile(usersArray) {
   const jsonContent = JSON.stringify(usersArray, null, 2);
   fetch("../db/usuarios.json", {
-    method: "POST", // Utiliza el método PUT para sobrescribir el archivo JSON existente
+    method: "PUT",
     body: jsonContent,
     headers: {
       "Content-Type": "application/json",
@@ -35,6 +46,25 @@ function saveToJsonFile(usersArray) {
       console.error("Error al guardar en el archivo JSON:", error)
     );
 }
+
+formRegister.addEventListener("submit", (e) => {
+  e.preventDefault();
+  const email = mailReg.value;
+  const password = passReg.value;
+
+  firebase
+    .auth()
+    .createUserWithEmailAndPassword(email, password)
+    .then((userCredential) => {
+      const user = userCredential.user;
+      console.log("Usuario registrado:", user);
+    })
+    .catch((error) => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      console.error("Error al registrar usuario:", errorMessage);
+    });
+});
 
 formRegister.addEventListener("submit", (e) => {
   e.preventDefault();
@@ -71,13 +101,11 @@ formRegister.addEventListener("submit", (e) => {
       return;
     }
 
-    // Generar un nuevo ID secuencial
     let newId = 1;
     if (users.length > 0) {
       newId = users[users.length - 1].id + 1;
     }
 
-    // Crear un nuevo usuario con los datos del formulario y el nuevo ID
     const newUser = {
       id: newId,
       name: nameReg.value,
@@ -86,9 +114,7 @@ formRegister.addEventListener("submit", (e) => {
       status: "new",
     };
 
-    // Agregar el nuevo usuario al arreglo de usuarios
     users.push(newUser);
-    // Guardar el arreglo de usuarios en un archivo JSON
     saveToJsonFile(users);
 
     Swal.fire({
