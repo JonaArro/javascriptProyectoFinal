@@ -17,11 +17,8 @@ Este es un sistema de ventas de amigurumis que permite a los usuarios comprar di
 
 - `index.html`: Página principal de la aplicación.
 - `login.html`: Página de inicio de sesión que permite a los usuarios iniciar sesión en sus cuentas registradas. Incluye campos para ingresar correo electrónico y contraseña, así como opciones para recordar la información de inicio de sesión y enlaces para registro y recuperación de contraseña.
-
 - `register.html`: Página de registro que permite a los nuevos usuarios crear una cuenta en la tienda. Incluye campos para ingresar nombre, correo electrónico y contraseña, así como un botón para enviar el formulario de registro.
-
 - `products.html`: Página que muestra la lista de productos disponibles en la tienda. Cada producto incluye su nombre, categoría, precio y una opción para agregarlo al carrito. Esta página también permite la búsqueda de productos.
-
 - `script.js`: Contiene la lógica del carrito de compras, manejo del `sessionStorage`, y funciones relacionadas con la manipulación del DOM.
 - `register.js`: Maneja el registro de usuarios y la validación de datos de entrada.
 - `login.js`: Gestiona el inicio de sesión de usuarios y el bloqueo de cuentas.
@@ -44,7 +41,7 @@ Este es un sistema de ventas de amigurumis que permite a los usuarios comprar di
 
 ## Autores
 
-- Arroyo Jonata Damian
+- Arroyo Jonatan Damian
 
 ## Colaboración
 
