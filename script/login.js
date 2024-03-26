@@ -155,7 +155,23 @@ function saveUsers(users) {
 }
 
 function recoverLs() {
-  return JSON.parse(localStorage.getItem("users"));
+  try {
+    const usersData = localStorage.getItem("users");
+    if (usersData) {
+      return JSON.parse(usersData); // Convertir los datos JSON almacenados en el localStorage de vuelta a un objeto JavaScript
+    } else {
+      console.log(
+        "No hay datos de usuarios en el localStorage. Se retornará un array vacío."
+      );
+      return []; // Devolver un array vacío si no hay datos en el localStorage
+    }
+  } catch (error) {
+    console.error(
+      "Error al recuperar datos de usuarios del localStorage:",
+      error
+    );
+    return null;
+  }
 }
 
 const usersLS = recoverLs();
