@@ -15,13 +15,15 @@ async function loadUsers() {
 async function initializeSession() {
   try {
     const jsonUsers = await loadUsers();
-    if (jsonUsers !== null) {
+    if (jsonUsers !== null && jsonUsers.length > 0) {
       formGetInto.addEventListener(
         "submit",
         handleSubmit.bind(null, jsonUsers)
       );
     } else {
-      console.error("No se pudieron cargar los usuarios.");
+      console.error(
+        "No se pudieron cargar los usuarios o el arreglo está vacío."
+      );
     }
   } catch (error) {
     console.error("Error inicializando sesión:", error);
