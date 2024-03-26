@@ -11236,3 +11236,11 @@ fieldset:disabled .btn {
   justify-content: center;
   align-items: center;
 }
+
+.fondo {
+  background-image: url("../asset/Fondo.jpeg");
+  /* background-size: cover; */
+  /*   background-position: center; */
+  /*   background-repeat: repeat; */
+  background-size: 30%;
+}

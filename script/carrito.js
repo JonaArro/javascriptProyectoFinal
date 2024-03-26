@@ -1,7 +1,6 @@
 function limpiarSessionStorage() {
   sessionStorage.removeItem("carrito");
   carrito = {};
-  mostrarCarrito();
 }
 
 // Resetear las cantidades de los contenedores a cero

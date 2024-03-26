@@ -70,6 +70,7 @@ function initSession(jsonUsers, email, password) {
       showConfirmButton: true,
     });
     formSubmitted = false; // Restablecer el estado del formulario
+    attempts = 0; // Restablecer el contador de intentos
     return; // Detiene la ejecución de la función
   }
 
@@ -102,7 +103,7 @@ function initSession(jsonUsers, email, password) {
       alert("Tu cuenta está bloqueada. Por favor, contacta al administrador.");
     }
   } else {
-    attempts++; // Incrementa el contador de intentos solo si el usuario no fue encontrado
+    attempts++; // Incrementa el contador de intentos solo si el usuario no fue encontrado o está bloqueado
     Swal.fire({
       position: "justify",
       icon: "warning",
