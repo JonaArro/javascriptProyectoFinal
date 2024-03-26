@@ -1,9 +1,21 @@
 // Función para cargar los usuarios del JSON
 async function loadUsers() {
   try {
+    // Verificar si ya hay usuarios en el localStorage
+    const usersFromLocalStorage = JSON.parse(localStorage.getItem("users"));
+    if (usersFromLocalStorage && usersFromLocalStorage.length > 0) {
+      console.log(
+        "Usuarios cargados desde el localStorage:",
+        usersFromLocalStorage
+      );
+      return usersFromLocalStorage; // Retorna los usuarios del localStorage si ya están cargados
+    }
+
+    // Si no hay usuarios en el localStorage, cargar desde el JSON y guardar en el localStorage
     const response = await fetch("../data/usuarios.json");
     const users = await response.json();
-    console.log("Usuarios cargados exitosamente:", users);
+    console.log("Usuarios cargados exitosamente desde el JSON:", users);
+    localStorage.setItem("users", JSON.stringify(users)); // Guardar los usuarios en el localStorage
     return users;
   } catch (error) {
     console.error("Error cargando usuarios:", error);

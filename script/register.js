@@ -68,8 +68,10 @@ formRegister.addEventListener("submit", async (e) => {
       title: "¡Registro exitoso!",
       text: "¡Bienvenido a nuestra tienda!",
       showConfirmButton: true,
-    }).then(() => {
-      formRegister.reset();
+    }).then((shouldResetForm) => {
+      if (shouldResetForm) {
+        formRegister.reset(); // Resetear el formulario solo si shouldResetForm es true
+      }
       window.location.href = "../pages/login.html";
     });
   } else {
