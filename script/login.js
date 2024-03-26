@@ -16,6 +16,7 @@ async function initializeSession() {
   try {
     const jsonUsers = await loadUsers();
     const lsUsers = recoverLs(); // Recuperar usuarios del localStorage
+
     if (
       jsonUsers !== null &&
       jsonUsers.length > 0 &&
