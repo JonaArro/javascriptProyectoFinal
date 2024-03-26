@@ -6,15 +6,21 @@
     "status": "new"
   },
   {
-    "name": "1",
-    "mail": "1@1.1",
-    "pass": 1,
+    "name": "Gisele",
+    "mail": "gise186@gmail.com",
+    "pass": "gise",
     "status": "new"
   },
   {
-    "name": "2",
-    "mail": "2@2.2",
-    "pass": 2,
+    "name": "Juani",
+    "mail": "arroyo.juani@gmail.com",
+    "pass": 999999,
+    "status": "new"
+  },
+  {
+    "name": "Test",
+    "mail": "test@gmail.com",
+    "pass": "test",
     "status": "new"
   }
 ]
