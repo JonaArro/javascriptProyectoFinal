@@ -15,22 +15,14 @@ async function loadUsers() {
 async function initializeSession() {
   try {
     const jsonUsers = await loadUsers();
-    const lsUsers = recoverLs(); // Recuperar usuarios del localStorage
-
-    if (
-      jsonUsers !== null &&
-      jsonUsers.length > 0 &&
-      lsUsers !== null &&
-      lsUsers.length > 0
-    ) {
+    if (jsonUsers !== null && jsonUsers.length > 0) {
+      const lsUsers = recoverLs(); // Recuperar usuarios del localStorage
       formGetInto.addEventListener(
         "submit",
-        handleSubmit.bind(null, jsonUsers, lsUsers) // Pasar ambos conjuntos de usuarios a la función de manejo de submit
+        handleSubmit.bind(null, jsonUsers, lsUsers)
       );
     } else {
-      console.error(
-        "No se pudieron cargar los usuarios desde el JSON o el localStorage."
-      );
+      console.error("No se pudieron cargar los usuarios desde el JSON.");
     }
   } catch (error) {
     console.error("Error inicializando sesión:", error);
@@ -171,7 +163,7 @@ function recoverLs() {
       "Error al recuperar datos de usuarios del localStorage:",
       error
     );
-    return null;
+    return []; // Devolver un array vacío en caso de error
   }
 }
 
