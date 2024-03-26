@@ -113,7 +113,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const categoriaElement =
           productoSeleccionado.querySelector(".categoria");
         const precioElement = productoSeleccionado.querySelector(".precio");
-        // Obtén el texto que contiene la categoría y el precio
+        // Obténgo el texto que contiene la categoría y el precio
         const categoriaText = categoriaElement.innerText;
         const precioText = precioElement.innerText;
         // Utiliza una expresión regular para extraer solo el precio del texto

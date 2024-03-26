@@ -20,7 +20,7 @@ async function initializeSession() {
   }
 }
 
-// Llamamos a la función para inicializar la sesión
+// Inicio de sesión
 initializeSession();
 
 const formGetInto = document.querySelector("#getIntoForm"),
@@ -28,10 +28,9 @@ const formGetInto = document.querySelector("#getIntoForm"),
   passInput = document.querySelector("#inputPass");
 
 let attempts = 0;
-const maxAttempts = 4; // Define el número máximo de intentos permitidos
-let formSubmitted = false; // Variable para controlar si el formulario ha sido enviado
+const maxAttempts = 4;
+let formSubmitted = false;
 
-// Seleccionar el checkbox "Recuérdame"
 const rememberCheckbox = document.querySelector("#exampleCheck1");
 
 // Función para manejar el evento submit del formulario
@@ -40,7 +39,7 @@ function handleSubmit(jsonUsers, event) {
 
   // Verificar si el formulario ya se ha enviado
   if (formSubmitted) {
-    return; // Salir de la función si ya se ha enviado el formulario
+    return;
   }
 
   // Marcar el formulario como enviado
@@ -55,7 +54,6 @@ function handleSubmit(jsonUsers, event) {
     return;
   }
 
-  // Llamar a la función initSession para iniciar sesión
   initSession(jsonUsers, email, password);
 }
 
@@ -75,11 +73,11 @@ function initSession(jsonUsers, email, password) {
   }
 
   let userFoundJson = jsonUsers.find((user) => {
-    return user.mail === email && user.pass.toString() === password; // Convertir el password del JSON a cadena antes de comparar
+    return user.mail === email && user.pass.toString() === password; // Convertir el password del JSON a string antes de comparar
   });
 
   let userFoundLS = usersLS.find((user) => {
-    return user.mail === email && user.pass.toString() === password; // Convertir el password del JSON a cadena antes de comparar
+    return user.mail === email && user.pass.toString() === password; // Convertir el password del JSON a string antes de comparar
   });
 
   if (userFoundJson || userFoundLS) {
@@ -95,7 +93,7 @@ function initSession(jsonUsers, email, password) {
           (userFoundJson ? userFoundJson.name : userFoundLS.name) +
           "!",
         showConfirmButton: false,
-        timer: 2000, // El mensaje de bienvenida se mostrará por 2 segundos
+        timer: 2000,
       }).then(() => {
         location.href = "../pages/products.html";
       });
@@ -131,18 +129,16 @@ const usersLS = recoverLs();
 
 // Función para restablecer el estado del formulario después de la ejecución del evento
 function resetFormState() {
-  formSubmitted = false; // Restablecer el estado del formulario
+  formSubmitted = false;
 }
 
 // Agregar el event listener para el evento submit del formulario
 formGetInto.addEventListener("submit", resetFormState);
 
 rememberCheckbox.addEventListener("click", function () {
-  // Obtener los valores del correo electrónico y la contraseña
   const email = mailInput.value;
   const password = passInput.value;
 
-  // Verificar si el checkbox está marcado
   if (this.checked) {
     // Guardar los valores en el localStorage
     localStorage.setItem("rememberedEmail", email);

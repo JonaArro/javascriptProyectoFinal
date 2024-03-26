@@ -70,7 +70,6 @@ formRegister.addEventListener("submit", async (e) => {
       showConfirmButton: true,
     }).then(() => {
       formRegister.reset();
-      // Redireccionar a la pantalla de inicio de sesión
       window.location.href = "../pages/login.html";
     });
   } else {
