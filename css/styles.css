@@ -11167,17 +11167,46 @@ fieldset:disabled .btn {
   transform: translate(-50%, -50%);
   background-color: white;
   padding: 20px;
-  border: 2px solid black;
-  z-index: 9999;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+}
+
+#carritoContenedor p {
+  margin: 0 0 10px 0;
+}
+
+#carritoContenedor ul {
+  padding: 0;
+  margin: 0 0 10px 0;
+  list-style-type: none;
+}
+
+#carritoContenedor ul li {
+  margin-bottom: 5px;
+  padding-left: 20px; /* Agregar un padding a la izquierda para dejar espacio para la viñeta */
+  position: relative; /* Posición relativa para ajustar la viñeta */
+}
+
+#carritoContenedor ul li:before {
+  content: "\2022"; /* Unicode para la viñeta */
+  position: absolute;
+  left: 0;
 }
 
 #carritoContenedor button {
-  margin-top: 10px;
-  padding: 5px 10px;
-  background-color: red;
-  color: white;
+  padding: 10px 20px;
+  margin-right: 10px;
   border: none;
+  background-color: #007bff;
+  color: white;
   cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+#carritoContenedor button:hover {
+  background-color: #0056b3;
 }
 
 .dropdown {
@@ -11186,7 +11215,7 @@ fieldset:disabled .btn {
 
 .product-image {
   width: 100%;
-  height: auto;
+  height: 100%;
 }
 
 .mensajeCantidad {

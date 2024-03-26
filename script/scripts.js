@@ -87,11 +87,15 @@ document.querySelectorAll(".quantity-selection").forEach((item) => {
 // Función para obtener el precio unitario según el nombre del producto
 function obtenerPrecioUnitario(nombreProducto) {
   const productos = [
-    { nombre: "Sonajero Perro", precioUnitario: 6400 },
-    { nombre: "Sonajero Gato", precioUnitario: 7300 },
-    { nombre: "Peluche Elefante", precioUnitario: 8500 },
-    { nombre: "Peluche Zorro", precioUnitario: 7000 },
-    { nombre: "Cunero Dragon Ball", precioUnitario: 15000 },
+    { nombre: "Perro", precioUnitario: 6400 },
+    { nombre: "Gato", precioUnitario: 7300 },
+    { nombre: "Elefante", precioUnitario: 8500 },
+    { nombre: "Zorro", precioUnitario: 7000 },
+    { nombre: "Luffi", precioUnitario: 6500 },
+    { nombre: "Naruto", precioUnitario: 7000 },
+    { nombre: "Dragon Ball", precioUnitario: 15000 },
+    { nombre: "Llamas", precioUnitario: 15000 },
+    { nombre: "Bambi", precioUnitario: 15000 },
   ];
 
   // Buscar el producto por su nombre

@@ -1,0 +1,20 @@
+[
+  {
+    "name": "Jonatan",
+    "mail": "arroyo.jonatan@gmail.com",
+    "pass": 123456,
+    "status": "new"
+  },
+  {
+    "name": "1",
+    "mail": "1@1.1",
+    "pass": 1,
+    "status": "new"
+  },
+  {
+    "name": "2",
+    "mail": "2@2.2",
+    "pass": 2,
+    "status": "new"
+  }
+]

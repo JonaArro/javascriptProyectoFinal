@@ -1,5 +1,7 @@
 function limpiarSessionStorage() {
-  sessionStorage.clear();
+  sessionStorage.removeItem("carrito");
+  carrito = {};
+  mostrarCarrito();
 }
 
 // Resetear las cantidades de los contenedores a cero
@@ -163,7 +165,7 @@ function mostrarCarrito() {
     clearButton.innerText = "Limpiar Carrito";
     clearButton.addEventListener("click", () => {
       // Limpiar el carrito al hacer clic en el botón "Limpiar Carrito"
-      carrito = {};
+      limpiarSessionStorage(); // Llama a la función limpiarSessionStorage
       // Actualizar la visualización del carrito
       mostrarCarrito();
       // Actualizar el contador del carrito después de limpiarlo

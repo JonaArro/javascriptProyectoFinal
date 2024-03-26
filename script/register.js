@@ -1,10 +1,7 @@
-const formRegister = document.querySelector("#formReg"),
-  nameReg = document.querySelector("#regName"),
-  mailReg = document.querySelector("#regMail"),
-  passReg = document.querySelector("#regPass"),
-  btnReg = document.querySelector("#regBtn");
-
-let users = JSON.parse(localStorage.getItem("users")) || [];
+const formRegister = document.querySelector("#formReg");
+const nameReg = document.querySelector("#regName");
+const mailReg = document.querySelector("#regMail");
+const passReg = document.querySelector("#regPass");
 
 class User {
   constructor(name, mail, pass, status) {
@@ -14,22 +11,43 @@ class User {
     this.status = status || "new"; //Status: New;Block;recover
   }
   block() {
-    this.status = "blocked";
+    this.status = "blocked"; // a implementar logica cuando vea back
   }
   recover() {
-    this.status = "recover";
+    this.status = "recover"; // a implementar logica cuando vea back
   }
 }
 
 function saveLs(arr) {
-  return localStorage.setItem("users", JSON.stringify(arr));
+  localStorage.setItem("users", JSON.stringify(arr));
 }
 
-formRegister.addEventListener("submit", (e) => {
-  e.preventDefault();
-  const existingUser = users.find((user) => user.mail === mailReg.value);
+// Cargar el archivo JSON de usuarios
+async function loadUsersFromJson() {
+  try {
+    const response = await fetch("../data/usuarios.json");
+    const usersJson = await response.json();
+    return usersJson;
+  } catch (error) {
+    console.error("Error loading users from JSON:", error);
+    return [];
+  }
+}
 
-  if (existingUser) {
+formRegister.addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const usersJson = await loadUsersFromJson();
+  const existingUserJson = usersJson.find(
+    (user) => user.mail.toLowerCase() === mailReg.value.toLowerCase()
+  );
+  const existingUserLS = JSON.parse(localStorage.getItem("users")) || [];
+
+  if (
+    existingUserJson ||
+    existingUserLS.find(
+      (user) => user.mail.toLowerCase() === mailReg.value.toLowerCase()
+    )
+  ) {
     Swal.fire({
       position: "justify",
       icon: "warning",
@@ -42,12 +60,13 @@ formRegister.addEventListener("submit", (e) => {
   // Si no hay un usuario existente con el mismo correo, crear uno nuevo
   const newUser = new User(nameReg.value, mailReg.value, passReg.value);
   if (newUser.status === "new") {
-    users.push(newUser);
-    saveLs(users);
+    existingUserLS.push(newUser); // Agregamos el nuevo usuario al arreglo del Local Storage
+    saveLs(existingUserLS); // Guardamos el arreglo actualizado en el Local Storage
     Swal.fire({
       position: "justify",
       icon: "success",
-      title: "Usuario creado exitosamente",
+      title: "¡Registro exitoso!",
+      text: "¡Bienvenido a nuestra tienda!",
       showConfirmButton: true,
     }).then(() => {
       formRegister.reset();
