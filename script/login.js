@@ -1,13 +1,9 @@
 // Función para cargar los usuarios del JSON
-async function loadUsersAndSaveToLocalStorage() {
+async function loadUsers() {
   try {
     const response = await fetch("../data/usuarios.json");
     const users = await response.json();
     console.log("Usuarios cargados exitosamente:", users);
-
-    // Guardar los usuarios en el localStorage
-    saveUsersToLocalStorage(users);
-
     return users;
   } catch (error) {
     console.error("Error cargando usuarios:", error);
@@ -15,29 +11,25 @@ async function loadUsersAndSaveToLocalStorage() {
   }
 }
 
-function saveUsersToLocalStorage(users) {
-  localStorage.setItem("users", JSON.stringify(users));
-}
-
 // Función para inicializar la sesión después de cargar los usuarios
 async function initializeSession() {
   try {
-    const jsonUsers = await loadUsersAndSaveToLocalStorage();
+    const jsonUsers = await loadUsers();
     if (jsonUsers !== null && jsonUsers.length > 0) {
-      const lsUsers = recoverLs(); // Recuperar usuarios del localStorage
       formGetInto.addEventListener(
         "submit",
-        handleSubmit.bind(null, jsonUsers, lsUsers)
+        handleSubmit.bind(null, jsonUsers)
       );
     } else {
-      console.error("No se pudieron cargar los usuarios desde el JSON.");
+      console.error(
+        "No se pudieron cargar los usuarios o el arreglo está vacío."
+      );
     }
   } catch (error) {
     console.error("Error inicializando sesión:", error);
   }
 }
 
-const usersLS = recoverLs();
 // Inicio de sesión
 initializeSession();
 
@@ -157,24 +149,10 @@ function saveUsers(users) {
 }
 
 function recoverLs() {
-  try {
-    const usersData = localStorage.getItem("users");
-    if (usersData) {
-      return JSON.parse(usersData); // Convertir los datos JSON almacenados en el localStorage de vuelta a un objeto JavaScript
-    } else {
-      console.log(
-        "No hay datos de usuarios en el localStorage. Se retornará un array vacío."
-      );
-      return []; // Devolver un array vacío si no hay datos en el localStorage
-    }
-  } catch (error) {
-    console.error(
-      "Error al recuperar datos de usuarios del localStorage:",
-      error
-    );
-    return []; // Devolver un array vacío en caso de error
-  }
+  return JSON.parse(localStorage.getItem("users"));
 }
+
+const usersLS = recoverLs();
 
 // Función para restablecer el estado del formulario después de la ejecución del evento
 function resetFormState() {
