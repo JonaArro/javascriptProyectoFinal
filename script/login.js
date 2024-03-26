@@ -66,9 +66,19 @@ function handleSubmit(jsonUsers, event) {
 }
 
 function initSession(jsonUsers, email, password) {
-  // Valido si jsonUsers es null o undefined antes de continuar
-  if (!jsonUsers) {
-    console.error("Los usuarios no se han cargado correctamente.");
+  // Valida si jsonUsers es null o undefined antes de continuar
+  if (!jsonUsers || jsonUsers.length === 0) {
+    console.error(
+      "Los usuarios no se han cargado correctamente o están vacíos."
+    );
+    return;
+  }
+
+  // Valida si usersLS está definido y no es null antes de continuar
+  if (!usersLS || usersLS.length === 0) {
+    console.error(
+      "Los usuarios del localStorage no se han cargado correctamente o están vacíos."
+    );
     return;
   }
 
@@ -86,12 +96,13 @@ function initSession(jsonUsers, email, password) {
     return; // Detiene la ejecución de la función
   }
 
+  // Aquí podemos utilizar jsonUsers y usersLS para buscar el usuario
   let userFoundJson = jsonUsers.find((user) => {
-    return user.mail === email && user.pass.toString() === password; // Convertir el password del JSON a string antes de comparar
+    return user.mail === email && user.pass.toString() === password;
   });
 
   let userFoundLS = usersLS.find((user) => {
-    return user.mail === email && user.pass.toString() === password; // Convertir el password del JSON a string antes de comparar
+    return user.mail === email && user.pass.toString() === password;
   });
 
   if (userFoundJson || userFoundLS) {
