@@ -35,7 +35,7 @@ async function initializeSession() {
     console.error("Error inicializando sesión:", error);
   }
 }
-
+const usersLS = recoverLs();
 // Inicio de sesión
 initializeSession();
 
@@ -173,8 +173,6 @@ function recoverLs() {
     return null;
   }
 }
-
-const usersLS = recoverLs();
 
 // Función para restablecer el estado del formulario después de la ejecución del evento
 function resetFormState() {
