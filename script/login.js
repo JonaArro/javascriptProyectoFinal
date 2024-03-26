@@ -1,9 +1,13 @@
 // Función para cargar los usuarios del JSON
-async function loadUsers() {
+async function loadUsersAndSaveToLocalStorage() {
   try {
     const response = await fetch("../data/usuarios.json");
     const users = await response.json();
     console.log("Usuarios cargados exitosamente:", users);
+
+    // Guardar los usuarios en el localStorage
+    saveUsersToLocalStorage(users);
+
     return users;
   } catch (error) {
     console.error("Error cargando usuarios:", error);
@@ -11,10 +15,14 @@ async function loadUsers() {
   }
 }
 
+function saveUsersToLocalStorage(users) {
+  localStorage.setItem("users", JSON.stringify(users));
+}
+
 // Función para inicializar la sesión después de cargar los usuarios
 async function initializeSession() {
   try {
-    const jsonUsers = await loadUsers();
+    const jsonUsers = await loadUsersAndSaveToLocalStorage();
     if (jsonUsers !== null && jsonUsers.length > 0) {
       const lsUsers = recoverLs(); // Recuperar usuarios del localStorage
       formGetInto.addEventListener(
@@ -28,6 +36,7 @@ async function initializeSession() {
     console.error("Error inicializando sesión:", error);
   }
 }
+
 const usersLS = recoverLs();
 // Inicio de sesión
 initializeSession();
