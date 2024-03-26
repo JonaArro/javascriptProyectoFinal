@@ -66,6 +66,12 @@ function handleSubmit(jsonUsers, event) {
 }
 
 function initSession(jsonUsers, email, password) {
+  // Valido si jsonUsers es null o undefined antes de continuar
+  if (!jsonUsers) {
+    console.error("Los usuarios no se han cargado correctamente.");
+    return;
+  }
+
   // Verifica si ya se ha excedido el límite de intentos
   if (attempts >= maxAttempts) {
     Swal.fire({
