@@ -3,10 +3,11 @@ async function loadUsers() {
   try {
     const response = await fetch("../data/usuarios.json");
     const users = await response.json();
+    console.log("Usuarios cargados exitosamente:", users);
     return users;
   } catch (error) {
-    console.error("Error loading users:", error);
-    return [];
+    console.error("Error cargando usuarios:", error);
+    return null;
   }
 }
 
@@ -14,9 +15,16 @@ async function loadUsers() {
 async function initializeSession() {
   try {
     const jsonUsers = await loadUsers();
-    formGetInto.addEventListener("submit", handleSubmit.bind(null, jsonUsers));
+    if (jsonUsers !== null) {
+      formGetInto.addEventListener(
+        "submit",
+        handleSubmit.bind(null, jsonUsers)
+      );
+    } else {
+      console.error("No se pudieron cargar los usuarios.");
+    }
   } catch (error) {
-    console.error("Error initializing session:", error);
+    console.error("Error inicializando sesión:", error);
   }
 }
 
